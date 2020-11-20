@@ -17,13 +17,14 @@ from data.database import Database
 from modules.config import Messages as m_
 from modules.config import Query as q_
 from modules.config import Colors as c_
-from modules.config import Buttons as b_
-from modules.config import InputFields as if_
+from modules.config import TreeViewWidget as tv_
+from modules.config import ButtonWidget as b_
+from modules.config import InputFieldWidget as if_
 from modules.config import ListBox as lb_
 from modules.config import BarScroll as bs_
 from modules.config import LabelField as lf_
 from modules.config import VarString as vs_
-from modules.config import MessageBox as mb_
+from modules.config import MessageBoxWidget as mb_
 
 db = Database(":memory:")
 db.insert("BK001", "bkfast", "Muffin", "MUFFIN", 2.75)
@@ -76,6 +77,14 @@ class GUI(tk.Frame):
         self.create_buttons()
         self.populate_list()
 
+    def create_styles(self):
+        self.style = ttk.Style()
+        self.style.theme_use("clam") # default, clam, alt
+        '''
+        style.configure("Treeview", background="#D3D3D3", foreground="black", rowheight=25, fieldbackground="#D3D3D3)
+        style.map("Treeview", background=[("selected", "blue")])
+        '''
+
     def create_frames(self):
         """Create GUI Frames
         """
@@ -86,11 +95,11 @@ class GUI(tk.Frame):
         self.frame_left_bottom_child = tk.Frame(master=self.frame_left_full)
         self.frame_search = tk.LabelFrame(master=self.frame_left_top_child, text="SEARCH")
         # RENDER/PACK FRAMES
-        self.frame_left_full.pack(side=tk.LEFT, anchor=tk.W)
-        self.frame_right_full.pack(side=tk.RIGHT, anchor=tk.E)
-        self.frame_left_top_child.pack(side=tk.TOP, anchor=tk.NW)
-        self.frame_left_bottom_child.pack(side=tk.BOTTOM, anchor=tk.SW)
-        self.frame_search.pack(side=tk.BOTTOM, anchor=tk.WSE)
+        self.frame_left_full.pack(fill="both", expand=True, side=tk.LEFT, anchor=tk.W)
+        self.frame_right_full.pack(fill="both", expand=True, side=tk.RIGHT, anchor=tk.E)
+        self.frame_left_top_child.pack(fill="both", expand=True, side=tk.TOP, anchor=tk.NW)
+        self.frame_left_bottom_child.pack(fill="both", expand=True, side=tk.BOTTOM, anchor=tk.SW)
+        self.frame_search.pack(fill="both", expand=True, side=tk.BOTTOM, anchor=tk.WSE)
 
     def create_widgets(self):
         """Create GUI Widgets
@@ -153,7 +162,25 @@ class GUI(tk.Frame):
     def create_treeview(self):
         """Create TreeView GUI widget
         """
-        pass
+        self.tree_view = ttk.Treeview(self.master, columns=tv_.columns, show=tv_.show, selectmode=tv_.selectmode)
+        self.tree_view.pack()
+        
+        self.tree_view.heading(1, text=tv_.HEADINGS[0])
+        self.tree_view.heading(2, text=tv_.HEADINGS[1])
+        self.tree_view.heading(3, text=tv_.HEADINGS[2])
+        self.tree_view.heading(4, text=tv_.HEADINGS[3])
+        self.tree_view.heading(5, text=tv_.HEADINGS[4])
+        
+        self.vsb = ttk.Scrollbar(orient="vertical", command=self.tree_view.yview)
+        self.hsb = ttk.Scrollbar(orient="horizontal", command=self.tree_view.xview)
+        self.tree_view.configure(yscrollcommand=self.vsb.set, xscrollcommand=self.hsb.set)
+        self.tree_view.grid(column=0, row=0, sticky='nsew', in_=container)
+        self.vsb.grid(column=1, row=0, sticky='ns', in_=container)
+        self.hsb.grid(column=0, row=1, sticky='ew', in_=container)
+        container.grid_columnconfigure(0, weight=1)
+        container.grid_rowconfigure(0, weight=1)
+        
+        self.tree_view.bind(lb_.bind_seq, self.select_item)
 
     def create_listbox(self):
         """Create ListBox GUI widget
@@ -171,7 +198,7 @@ class GUI(tk.Frame):
         self.scrollbar.configure(command=self.items_list.yview)
 
         # BIND LISTBOX SELECTION
-        self.items_list.bind(bs_.bind_seq, self.select_item)
+        self.items_list.bind(lb_.bind_seq, self.select_item)
 
     def create_buttons(self):
         """Add button widgets to frame(s) -> ADD, REMOVE, UPDATE, CLEAR, SEARCH, ...
@@ -232,6 +259,13 @@ class GUI(tk.Frame):
         self.items_list.delete(0, tk.END)
         for row in db.fetch_all():
             self.items_list.insert(tk.END, row)
+
+    # TODO: NOT IMPLEMENTED YET
+    def populate_tree(self):
+        self.clear_text()
+        self.tree_view.delete(*self.tree_view.get_children())
+        for row in db.fetch_all():
+            self.tree_view.insert("", "end", values=row)
 
     def add_item(self):
         """Add item (record) into database and ListBox widget
@@ -332,10 +366,19 @@ class GUI(tk.Frame):
         self.items_list.delete(0, tk.END)
         for row in db.search(self.search_text.get().upper()):
             self.items_list.insert(tk.END, row)
+            
+        ''' SEARCH ITEMS Treeview ----------------------------
+        tree_view.delete(*tree_view.get_children())
+        for row in db.search(self.search_text.get().upper()):
+            tree_view.insert("", "end", values=row)
+        ---------------------------------------------------'''
 
-
-if __name__ == '__main__':
+def main():
     root = tk.Tk()
     root.minsize(width=600, height=450)
     gui = GUI(master=root)
     gui.mainloop()
+
+
+if __name__ == '__main__':
+    main()

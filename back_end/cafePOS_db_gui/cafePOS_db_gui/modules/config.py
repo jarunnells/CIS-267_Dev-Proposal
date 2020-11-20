@@ -38,7 +38,7 @@ class Query:
     UPDATE = f"UPDATE {TableNames.ACTIVE_TABLE} SET id=?, category=?, name=?, label=?, price=? WHERE id=?"
     DROP = f"DROP TABLE IF EXISTS {TableNames.ACTIVE_TABLE}"
 
-class MessageBox:
+class MessageBoxWidget:
     ERRORS = {
         "add_item": {"title": "REQUIRED!", "message": "ALL fields required."}
     }
@@ -81,7 +81,7 @@ class LabelFrameWidget:
     
     # ===================
 
-class Buttons:
+class ButtonWidget:
     padx = 0
     pady = 0
     width = 12
@@ -114,7 +114,7 @@ class Buttons:
     # column = None
     # ===================
 
-class InputFields:
+class InputFieldWidget:
     column = 1
     cnf_grid = {"column": column}
     # ===== UNUSED ======
@@ -130,9 +130,19 @@ class InputFields:
     # ===================
 
 class TreeViewWidget:
-    pass
+    bind_seq = '<<TreeviewSelect>>'
+    columns = (1,2,3,4,5)
+    selectmode = "browse"
+    show = "headings"
+    HEADINGS = ["Item ID", "Category", "Name", "Label", "Price"]
+    # ===== UNUSED ======
+    # displaycolumns = None
+    # height = None
+    # padding = (None, None, None,  None)
+    # ===================
 
-class ListBox:    
+class ListBox:
+    bind_seq = '<<ListboxSelect>>'
     height = 15
     width = 45
     border = 0
@@ -172,7 +182,6 @@ class ListBox:
     # ===================
 
 class BarScroll:    
-    bind_seq = '<<ListboxSelect>>'
     row = 7
     column = 3
     sticky = tk.W
