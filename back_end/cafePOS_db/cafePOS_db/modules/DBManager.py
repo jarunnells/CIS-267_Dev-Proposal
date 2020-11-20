@@ -5,12 +5,16 @@
 # ==========================================
 from sqlite3 import connect, Error, OperationalError
 import json
+import sqlite3
+
+from modules.helper import Default
 
 
 class DBManager:
     """DATABASE MANAGER CLASS"""
 
-    def __init__(self, db=':memory:', data_path=r'./'):
+    # def __init__(self, db=':memory:', data_path=r'./'):
+    def __init__(self, db=Default.DB_MEMORY, data_path=Default.DATA_PATH):
         """
         DBManager Constructor
         :param db: database name
@@ -48,7 +52,7 @@ class DBManager:
                 if self.cur:
                     self.cur.close()
 
-    def fetch_tables(self):
+    def fetchall_tables(self):
         """
         List Tables
         :return:
@@ -68,29 +72,45 @@ class DBManager:
                 if self.cur:
                     self.cur.close()
 
-# ===========================================================================================
-
-    def insert_record(self, tbl_name, record):
+    def insert_record(self, record):
         """
         Insert Record
-        :param tbl_name:
         :param record:
         :return:
         """
-        # TODO: implement connection context manager
-        try:
-            self.connect_db()
-            self.create_cursor()
-            self.cur.execute(record)
-            self.conn.commit()
-            self.close_cursor()
-        except Error as err:
-            print(f"[ERROR] {err}")
-        else:
-            print(f"Total changes: {self.conn.total_changes}")
-        finally:
-            if self.conn:
-                self.close_connection()
+        tbl_name = "items"
+        create_tbl = f"""BEGIN TRANSACTION; 
+        CREATE TABLE IF NOT EXISTS {tbl_name}(
+                id TEXT PRIMARY KEY,
+                category TEXT NOT NULL,
+                name TEXT NOT NULL,
+                label TEXT NOT NULL,
+                price REAL
+            );
+        COMMIT;"""
+        
+        query = f"""
+            BEGIN TRANSACTION;
+                INSERT INTO {tbl_name}(id,category,name,label,price)
+                VALUES (?,?,?,?,?);
+            COMMIT;
+            """
+        
+        with connect(self.db) as self.conn:
+            self.cur = self.conn.cursor()
+            try:
+                # record = [('ID_01', 'CAT_01', 'NAME_01', 'LABEL_01', 1.99)]
+                record = (item_id := input("ID: "), category := input("Category: "), name := input("Name: "), label := input("Label: "), price := input("Price: "))
+                self.cur.execute(create_tbl, (tbl_name,))
+                self.cur.execute(query, record)
+            except Error as err:
+                print(f"[ERROR] {err}")
+            else:
+                self.conn.commit()
+                print(f"Total changes: {self.conn.total_changes}")
+            finally:
+                if self.cur:
+                    self.cur.close()
 
     def insert_records(self, tbl_name, records, is_sql):
         """
@@ -108,20 +128,19 @@ class DBManager:
                         rec_sql = rec_file.read()
                     self.cur.executescript(rec_sql)
                     # self.conn.commit()
+                # TODO: for testing - convert to if sql elif cvs -> manual adds should be single records
                 else:
                     # RECORDS -> NEEDS TO BE PASSED AS A LIST
-                    records = [('BK001', 'bkfast', 'Muffin', 'MUFFIN', 2.75),
-                               ('HB001', 'bev_hot', 'Coffee', 'COFFEE', 1.99),
-                               ('CB001', 'bev_cold', 'Aquafina', 'AQUA H20', 1.00),
-                               ('DE001', 'deli', 'Noodle Cup', 'NOODLE CUP', 1.00),
-                               ('SN001', 'snack', 'Cookie', 'COOKIE', 1.64),
-                               ('CD001', 'condiment', 'Dressing', 'DRESSING', 0.75)]
+                    records = [
+                        ('ID_01', 'CAT_01', 'NAME_01', 'LABEL_01', 1.99),
+                        ('ID_02', 'CAT_02', 'NAME_02', 'LABEL_02', 2.99)]
                     insert_query = f"""
                         BEGIN TRANSACTION;
                         INSERT INTO {tbl_name}(id,category,name,label,price)
                             VALUES (?,?,?,?,?);
                         COMMIT;
                         """
+                    # self.cur.executemany(insert_query, records) if records.count() > 1 else self.cur.execute(insert_query, records)
                     self.cur.executemany(insert_query, records)
             except Error as err:
                 print(f"[ERROR] {err}")
@@ -132,30 +151,30 @@ class DBManager:
                 if self.cur:
                     self.cur.close()
 
-    def fetch_records(self, tbl_name):
+    def fetchall_records(self, tbl_name):
         """
-        Fetch Records
+        Fetch All Records
         :param tbl_name:
         :return:
         """
-        # TODO[FIXME]: MISSING -> try|except|else|finally [Err: sqlite3.OperationalError: no such table]
-        # TODO: implement connection context manager
-        self.connect_db()
-        self.create_cursor()
+        query = f'SELECT * FROM {tbl_name}'
 
-        query_fetchall = f'SELECT * FROM {tbl_name}'
-        self.cur.execute(query_fetchall)
-        rows = self.cur.fetchall()
-
-        for row in rows:
-            print(row)
-            print(f'''
-         id: {row[0]}
-        cat: {row[1]}
-       name: {row[2]}
-      label: {row[3]}
-      price: $ {row[4]}
-    ''')
+        with connect(self.db) as self.conn:
+            self.cur = self.conn.cursor()
+            try:
+                self.cur.execute(query)
+            except sqlite3.OperationalError as err:
+                print(f"[ERROR] {err}")
+            except Error as err:
+                print(f"[ERROR] {err}")
+            else:
+                rows = self.cur.fetchall()
+                for row in rows:
+                    print(row)
+                    print(f"\t\t\t\tid: {row[0]}\n\t\t\t   cat: {row[1]}\n\t\t\t  name: {row[2]}\n\t\t\t label: {row[3]}\n\t\t\t price: $ {row[4]}")
+            finally:
+                if self.cur:
+                    self.cur.close()
 
     def delete_record(self, table, record):
         """
@@ -164,21 +183,21 @@ class DBManager:
         :param record: record to remove
         :return:
         """
-        # TODO: implement connection context manager
-        try:
-            self.connect_db()
-            self.create_cursor()
-            del_query = f'''DELETE FROM {table} WHERE id = ?;'''
-            self.cur.execute(del_query, (record,))
-        except Error as err:
-            print(f"DELETE record [{record}] error [{err}]")
-        else:
-            self.conn.commit()
-            self.close_cursor()
-            print(f"Record [{record}] successfully removed!")
-        finally:
-            if self.conn:
-                self.close_connection()
+        query = f"""DELETE FROM ? WHERE id = ?;"""
+
+        with connect(self.db) as self.conn:
+            self.cur = self.conn.cursor()
+            try:
+                self.cur.execute(query, (table, record,))
+                self.conn.commit()
+            except Error as err:
+                print(f"DELETE record [{record}] error [{err}]")
+            else:
+                print(f"Record [{record}] successfully removed!")
+                print(f"Total changes: {self.conn.total_changes}")
+            finally:
+                if self.cur:
+                    self.cur.close()
 
     def drop_tables(self, tables):
         """
@@ -186,69 +205,99 @@ class DBManager:
         :param tables:
         :return:
         """
-        # TODO: implement connection context manager
-        try:
-            self.connect_db()
-            self.create_cursor()
-            for i, table in enumerate(tables):
-                self.cur.execute(f'DROP TABLE IF EXISTS {tables[i]}')
-            self.conn.commit()
-            self.close_cursor()
-        except Error as err:
-            print(f"[ERROR] {err}")
-        else:
-            print(f"Total changes: {self.conn.total_changes}")
-        finally:
-            if self.conn:
-                self.close_connection()
+        query = f"DROP TABLE IF EXISTS ?"
 
+        with connect(self.db) as self.conn:
+            self.cur = self.conn.cursor()
+            try:
+                for table in tables:
+                    self.cur.execute(query, table)
+                self.conn.commit()
+            except Error as err:
+                print(f"[ERROR] {err}")
+            else:
+                print(f"Total changes: {self.conn.total_changes}")
+            finally:
+                if self.cur:
+                    self.cur.close()
+
+    # TODO: complete implementation and testing
     def dump_db(self):
         """
         Dump Database
         :return:
         """
-        out_file = f"/backup/dump_{self.db_name}.sql"
+        out_file = f"/backup/dump_{self.db}.sql"
         mode = 'w'
 
-        # TODO: implement connection context manager
-        try:
-            self.connect_db()
-            with open(out_file, mode) as dump:
-                for line in self.conn.iterdump():
-                    # print(line)
-                    dump.write(f"{line}\n")
-        except Error as err:
-            print(f"[ERROR] {err}")
-        else:
-            print(f"{out_file} created successfully using mode {mode}")
-        finally:
-            if self.conn:
-                self.close_connection()
-
-    def dump_json(self, tbl_name='items', source_type='sql'):
-        """
-        Dump Database into JSON file
-        :param tbl_name: table name to fetch all records
-        :param source_type: source file data type -> 'sql' or 'csv'
-        :return:
-        """
-        query_fetchall = f'SELECT * FROM {tbl_name}'
-
-        if source_type == 'sql':
-            # TODO: implement connection context manager
+        with connect(self.db) as self.conn:
+            self.cur = self.conn.cursor()
             try:
-                self.connect_db()
-                self.create_cursor()
-                result = self.cur.execute(query_fetchall)
-                json_result = [dict(zip([key[0] for key in self.cur.description], row)) for row in result]
+                with open(out_file, mode) as dump:
+                    for line in self.conn.iterdump():
+                        # print(line)
+                        dump.write(f"{line}\n")
             except Error as err:
                 print(f"[ERROR] {err}")
             else:
-                print(json.dumps({"items": json_result}))
+                print(f"{out_file} created successfully using mode {mode}")
             finally:
-                self.close_cursor()
-                if self.conn:
-                    self.close_connection()
+                if self.cur:
+                    self.cur.close()
+
+    # TODO: complete implementation and testing
+    def dump_json(self, tbl_name='items', output_type='sql'):
+        """
+        Dump Database into JSON file
+        :param tbl_name: table name to fetch all records
+        :param output_type: source file data type -> 'sql' or 'csv'
+        :return:
+        """
+        query = f"SELECT * FROM {tbl_name}"
+        timestamp = 'TEST'
+        file_name = f"cafePOS_db-{timestamp}.json"
+        file_path = f'/cafePOS_db/cafePOS_db/data/dump_{file_name}'
+        mode = 'w'
+
+        if output_type == 'sql':
+            with connect(self.db) as self.conn:
+                self.cur = self.conn.cursor()
+                try:
+                    result = self.cur.execute(query)
+                    dict_result = [
+                        dict(zip([key[0] for key in self.cur.description], row)) for row in result]
+                    with open(file_path, mode) as f_json:
+                        # MATCH: menuItems.json
+                        json.dump(dict_result, f_json)
+                        # json.dump(dict_result, f_json, indent=2)
+                        # MATCH(ish): menuItems-NEW.json
+                        # json.dump({"items": dict_result})
+                        # json.dump({"items": dict_result}, indent=2)
+                except sqlite3.OperationalError as err:
+                    print(f"[ERROR] {err}")
+                except Error as err:
+                    print(f"[ERROR] {err}")
+                else:
+                    print(json.dumps({"items": dict_result}))
+                    print(json.dumps({"items": dict_result}, indent=2))
+                finally:
+                    if self.cur:
+                        self.cur.close()
+        elif output_type == 'csv':
+            example_table = [
+                (1, 'macOS', 'Catalina', 'YES'),
+                (2, 'windows', '10', 'NO'),
+                (3, 'linux', 'Mint 20', 'YES'),
+                (4, 'iOS', '12', 'YES'),
+                (5, 'android', '11', 'NO')
+            ]
+            columns = ['id', 'operating_sys', 'version', 'updated']
+            os_options = [dict(zip(columns, row)) for row in example_table]
+            json_result = json.dumps({'OS_Options': os_options}, indent=2)
+            # json_result = json.dumps({'OS_Options': os_options})
+            # json_result = json.dumps(os_options, indent=2)
+            # json_result = json.dumps(os_options)
+            print(json_result)
 
 # ===========================================================================================
 

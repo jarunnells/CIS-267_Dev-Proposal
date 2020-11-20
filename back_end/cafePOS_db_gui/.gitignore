@@ -2,6 +2,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/venv,macos,python,pycharm,database,vscode,virtualenv
 # Edit at https://www.toptal.com/developers/gitignore?templates=venv,macos,python,pycharm,database,vscode,virtualenv
 
+### Pytest
+__pycache__/*
+
 ### Database ###
 *.accdb
 *.db

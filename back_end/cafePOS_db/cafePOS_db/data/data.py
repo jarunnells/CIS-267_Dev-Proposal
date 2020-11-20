@@ -44,3 +44,6 @@ records = [
     ('CD004', 'condiment', 'Granola', 'GRANOLA', 0.50),
     ('CD005', 'condiment', 'Crackers', 'CRACKERS', 0.00),
     ('CD006', 'condiment', 'Dressing', 'DRESSING', 0.75)]
+
+import os
+print(os.getcwd())

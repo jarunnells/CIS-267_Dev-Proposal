@@ -3,7 +3,6 @@
 #          FILE:  helper.py
 #        BRANCH: dev
 # ==========================================
-from enum import Enum, unique
 from subprocess import call
 from os import system, name
 
@@ -16,25 +15,24 @@ TABLE_ITEMS_BLUEPRINT = [
     ['price', 'REAL']
 ]
 
-@staticmethod
-@unique
-class Default(Enum):
+# TODO: complete implementation
+class Default():
     DEVELOPER = "J.A. Runnells"
     VERSION = 1.0
     PROGRAM_NAME = "helper.py"
     DB_MEMORY = r':memory:'
-    DATA_PATH = r'./data/'
+    DATA_PATH = r'./back_end/cafePOS_db/cafePOS_db/data/'
     DB_NAME = r'cafePOS'
     TBL_NAME = r'items'
     EXT_DB = r'db'
     EXT_SQL = r'sqlite3'
     DB_URI = DB_NAME
     DATA_FILES = {
-        'TBLS_SQL': r'./data/sqlite_script_tables.sql', 
-        'RECS_SQL': r'./data/sqlite_script_records.sql'
+        'TBLS_SQL': r'./back_end/cafePOS_db/cafePOS_db/data/sqlite_script_tables.sql', 
+        'RECS_SQL': r'./back_end/cafePOS_db/cafePOS_db/data/sqlite_script_records.sql'
     }
-    TBLS_SQL = r'./data/sqlite_script_tables.sql'
-    RECS_SQL = r'./data/sqlite_script_records.sql'
+    # TBLS_SQL = r'./back_end/cafePOS_db/cafePOS_db/data/sqlite_script_tables.sql'
+    # RECS_SQL = r'./back_end/cafePOS_db/cafePOS_db/data/sqlite_script_records.sql'
 
 # TODO: complete implementation
 @staticmethod
