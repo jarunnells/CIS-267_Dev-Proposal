@@ -180,11 +180,11 @@ class GUI(tk.Frame):
 
         self.tree_view['columns'] = tv_.columns['int']
 
-        self.tree_view.heading(1, text=tv_.HEADINGS[0])
-        self.tree_view.heading(2, text=tv_.HEADINGS[1])
-        self.tree_view.heading(3, text=tv_.HEADINGS[2])
-        self.tree_view.heading(4, text=tv_.HEADINGS[3])
-        self.tree_view.heading(5, text=tv_.HEADINGS[4])
+        self.tree_view.heading(1, text=tv_.HEADINGS[0], command=lambda col=1: self.sortby(self.tree_view, col, 0))  # width=tkFont.Font().measure(col.title())
+        self.tree_view.heading(2, text=tv_.HEADINGS[1], command=lambda col=2: self.sortby(self.tree_view, col, 0))  # width=tkFont.Font().measure(col.title())
+        self.tree_view.heading(3, text=tv_.HEADINGS[2], command=lambda col=3: self.sortby(self.tree_view, col, 0))  # width=tkFont.Font().measure(col.title())
+        self.tree_view.heading(4, text=tv_.HEADINGS[3], command=lambda col=4: self.sortby(self.tree_view, col, 0))  # width=tkFont.Font().measure(col.title())
+        self.tree_view.heading(5, text=tv_.HEADINGS[4], command=lambda col=5: self.sortby(self.tree_view, col, 0))  # width=tkFont.Font().measure(col.title())
 
         self.tree_view.column(1, anchor=tk.W, width=75, minwidth=50)  # stretch=tk.YES
         self.tree_view.column(2, anchor=tk.W, width=100, minwidth=80)  # stretch=tk.YES
@@ -204,6 +204,18 @@ class GUI(tk.Frame):
         self.frame_top.grid_rowconfigure(0, weight=1)
 
         self.tree_view.bind(tv_.bind_seq, self.select_item)
+        
+        # TODO: COMPLETE IMPLEMENTATION
+        '''
+        adjust_column_width():
+                for item in car_list:
+                    self.tree.insert('', 'end', values=item)
+                    # adjust column's width if necessary to fit each value
+                    for ix, val in enumerate(item):
+                        col_w = tkFont.Font().measure(val)
+                        if self.tree.column(car_header[ix],width=None)<col_w:
+                            self.tree.column(car_header[ix], width=col_w)
+        '''
         
         # TEST DATA
         # test_data = [
@@ -425,6 +437,18 @@ class GUI(tk.Frame):
             self.tree_view.delete(*self.tree_view.get_children())
             for row in db.search_record_id(self.id_entry.get().upper()):
                 self.tree_view.insert("", "end", values=row)
+
+    def sortby(self, tree_view, column, descending):
+        """Sort Treeview on click event"""
+        print(f"Header Cell {column} Clicked")
+        # numeric data -> change to float
+        # data =  change_numeric(data)
+        data = [(self.tree_view.set(child, column), child) for child in self.tree_view.get_children('')]
+        data.sort(reverse=descending)
+        for ix, item in enumerate(data):
+            self.tree_view.move(item[1], '', ix)
+        # switch heading -> opposite sort
+        self.tree_view.heading(column, command=lambda c=column: self.sortby(tree_view, c, int(not descending)))
 
 def main():
     root = tk.Tk()
