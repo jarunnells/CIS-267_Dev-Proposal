@@ -38,7 +38,7 @@ class Database:
         return f"Database={self.db} :=: Connection={conn_status}"
 
     # TODO: rename -> fetch_all_records()
-    def fetch_all(self):
+    def fetch_all_records(self):
         """[summary]
 
         Returns:
@@ -49,7 +49,7 @@ class Database:
         return rows
 
     # TODO: rename -> insert_record()
-    def insert(self, id_, category_, name_, label_, price_):
+    def insert_record(self, id_, category_, name_, label_, price_):
         """[summary]
 
         Args:
@@ -63,7 +63,7 @@ class Database:
         self.conn.commit()
 
     # TODO: rename -> remove_record()
-    def remove(self, id_):
+    def remove_record(self, id_):
         """[summary]
 
         Args:
@@ -73,7 +73,7 @@ class Database:
         self.conn.commit()
 
     # TODO: rename -> update_record()
-    def update(self, id_, category_, name_, label_, price_):
+    def update_record(self, id_, category_, name_, label_, price_):
         """[summary]
 
         Args:
@@ -89,7 +89,7 @@ class Database:
         self.conn.commit()
 
     # TODO: rename -> search_record_id()
-    def search(self, id_):
+    def search_record_id(self, id_):
         """[summary]
 
         Args:
