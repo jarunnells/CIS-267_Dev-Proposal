@@ -208,13 +208,13 @@ class GUI(tk.Frame):
         # TODO: COMPLETE IMPLEMENTATION
         '''
         adjust_column_width():
-                for item in car_list:
-                    self.tree.insert('', 'end', values=item)
-                    # adjust column's width if necessary to fit each value
-                    for ix, val in enumerate(item):
+                for item in items:
+                    self.tree_view.insert('', 'end', values=item)
+                    # adjust column width as necessary to fit data
+                    for i, val in enumerate(item):
                         col_w = tkFont.Font().measure(val)
-                        if self.tree.column(car_header[ix],width=None)<col_w:
-                            self.tree.column(car_header[ix], width=col_w)
+                        if self.tree_view.column(items_header[i],width=None)<col_w:
+                            self.tree_view.column(items_header[i], width=col_w)
         '''
         
         # TEST DATA
