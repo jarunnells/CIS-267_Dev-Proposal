@@ -1,1 +1,3 @@
 # CIS-267_Dev-Proposal
+
+zip files including fully functional program comiing soon...finalizing details...
