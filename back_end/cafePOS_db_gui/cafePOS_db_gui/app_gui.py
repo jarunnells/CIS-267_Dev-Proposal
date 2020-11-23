@@ -47,21 +47,6 @@ db.insert_record("CD001", "condiment", "Dressing 01", "DRESSING 01", 0.75)
 db.insert_record("CD002", "condiment", "Dressing 02", "DRESSING 02", 0.75)
 db.insert_record("CD003", "condiment", "Dressing 03", "DRESSING 03", 0.75)
 
-# TXT = [
-#     ["Item ID", "Category", "Name", "POS Label", "Price"],
-#     ["Add Item", "Remove Item", "Update Item", "Clear Input"]
-# ]
-# ERRORS = {
-#     "title": "REQUIRED!",
-#     "message": "ALL fields required."
-# }
-# COLORS = {
-#     "light_steel_blue": {"py_name": "light steel blue", "hex": "#B0C4DE", "rgb": (176, 196, 222)},
-#     "light_coral": {"py_name": "light coral", "hex": "#F08080", "rgb": (240, 128, 128)},
-#     "lavender": {"py_name": "lavender", "hex": "#E6E6FA", "rgb": (230, 230, 250)},
-#     "antique_white": {"py_name": "antique white", "hex": "#FAEBD7", "rgb": (250, 235, 215)},
-# }
-
 
 # TODO: FINISH IMPLEMENTATION -> config.py
 class GUI(tk.Frame):
@@ -228,24 +213,24 @@ class GUI(tk.Frame):
         # for i, item in enumerate(test_data):
         #     self.tree_view.insert(parent="", index=tk.END, iid=i, text="", values=item)
 
-    def create_listbox(self):
-        """Create ListBox GUI widget"""
-        _MASTER = self.frame_bottom
+    # def create_listbox(self):
+    #     """Create ListBox GUI widget"""
+    #     _MASTER = self.frame_bottom
 
-        # ITEMS LIST -> listbox
-        self.items_list = tk.Listbox(master=_MASTER, cnf=lb_.cnf)
-        self.items_list.grid(cnf=lb_.cnf_grid)
+    #     # ITEMS LIST -> listbox
+    #     self.items_list = tk.Listbox(master=_MASTER, cnf=lb_.cnf)
+    #     self.items_list.grid(cnf=lb_.cnf_grid)
 
-        # SCROLLBAR WIDGET
-        self.scrollbar = tk.Scrollbar(master=_MASTER)
-        self.scrollbar.grid(cnf=bs_.cnf_grid)
+    #     # SCROLLBAR WIDGET
+    #     self.scrollbar = tk.Scrollbar(master=_MASTER)
+    #     self.scrollbar.grid(cnf=bs_.cnf_grid)
 
-        # SET SCROLLBAR WIDGET
-        self.items_list.configure(yscrollcommand=self.scrollbar.set)
-        self.scrollbar.configure(command=self.items_list.yview)
+    #     # SET SCROLLBAR WIDGET
+    #     self.items_list.configure(yscrollcommand=self.scrollbar.set)
+    #     self.scrollbar.configure(command=self.items_list.yview)
 
-        # BIND LISTBOX SELECTION
-        self.items_list.bind(lb_.bind_seq, self.select_item)
+    #     # BIND LISTBOX SELECTION
+    #     self.items_list.bind(lb_.bind_seq, self.select_item)
 
     def create_buttons(self):
         """Add button widgets to frame(s) -> ADD, REMOVE, UPDATE, CLEAR, SEARCH, ..."""
@@ -330,14 +315,7 @@ class GUI(tk.Frame):
             "name_": self.name_text.get().capitalize(),
             "pos_label_": self.pos_label_text.get().upper(),
             "price_": float(self.price_text.get()),
-        }        
-        # conditions = [
-        #     new_item['id_'] == '',
-        #     new_item['category_'] == '',
-        #     new_item['name_'] == '',
-        #     new_item['pos_label_'] == '',
-        #     new_item['price_'] == ''
-        # ]
+        }
         if any(self.validate_conditions()):
             messagebox.showerror(m_.ERRORS['add_item']['title'], m_.ERRORS['add_item']['message'])
             return
@@ -393,20 +371,6 @@ class GUI(tk.Frame):
 
     def update_item(self):
         """Update item (record)"""
-        # updated_item = {
-        #     "id_": self.id_text.get().upper(),
-        #     "category_": self.category_text.get().lower(),
-        #     "name_": self.name_text.get().capitalize(),
-        #     "pos_label_": self.pos_label_text.get().upper(),
-        #     "price_": float(self.price_text.get()),
-        # } 
-        # conditions = [
-        #     updated_item['id_'] == '',
-        #     updated_item['category_'] == '',
-        #     updated_item['name_'] == '',
-        #     updated_item['pos_label_'] == '',
-        #     updated_item['price_'] == ''
-        # ]
         if any(self.validate_conditions()):
             messagebox.showerror(m_.ERRORS['update_item']['title'], m_.ERRORS['update_item']['message'])
         else:
