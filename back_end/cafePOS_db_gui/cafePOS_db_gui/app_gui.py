@@ -324,13 +324,13 @@ class GUI(tk.Frame):
 
     def add_item(self):
         """Add item (record) into database and ListBox widget"""
-        # new_item = {
-        #     "id_": self.id_text.get().upper(),
-        #     "category_": self.category_text.get().lower(),
-        #     "name_": self.name_text.get().capitalize(),
-        #     "pos_label_": self.pos_label_text.get().upper(),
-        #     "price_": float(self.price_text.get()),
-        # }        
+        new_item = {
+            "id_": self.id_text.get().upper(),
+            "category_": self.category_text.get().lower(),
+            "name_": self.name_text.get().capitalize(),
+            "pos_label_": self.pos_label_text.get().upper(),
+            "price_": float(self.price_text.get()),
+        }        
         # conditions = [
         #     new_item['id_'] == '',
         #     new_item['category_'] == '',
