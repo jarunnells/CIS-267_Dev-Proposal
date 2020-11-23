@@ -1,7 +1,7 @@
 # ==========================================
 #     DEVELOPER:  J.A. Runnells
 #          FILE:  helper.py
-#        BRANCH: dev
+#        BRANCH: main
 # ==========================================
 from subprocess import call
 from os import system, name

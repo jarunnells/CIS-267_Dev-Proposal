@@ -1,7 +1,7 @@
 # ==========================================
 #     DEVELOPER:  J.A. Runnells
 #          FILE:  DBManager.py
-#        BRANCH: dev
+#        BRANCH: main
 # ==========================================
 from sqlite3 import connect, Error, OperationalError
 import json

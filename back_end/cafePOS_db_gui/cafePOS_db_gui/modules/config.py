@@ -1,7 +1,7 @@
 # ==========================================
 #     DEVELOPER:  J.A. Runnells
 #          FILE:  config.py
-#        BRANCH: dev
+#        BRANCH: main
 # ==========================================
 try:
     import tkinter as tk

@@ -1,7 +1,7 @@
 # ==========================================
 #     DEVELOPER:  J.A. Runnells
 #          FILE:  database.py -> DBManager.py
-#        BRANCH: dev
+#        BRANCH: main
 # ==========================================
 
 # STANDARD LIBRARY IMPORTS

@@ -1,7 +1,7 @@
 # ==========================================
 #     DEVELOPER:  J.A. Runnells
 #          FILE:  setup.py
-#        BRANCH: dev
+#        BRANCH: main
 # ==========================================
 from setuptools import setup
 

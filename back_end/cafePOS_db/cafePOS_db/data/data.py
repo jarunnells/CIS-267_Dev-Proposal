@@ -1,3 +1,8 @@
+# ==========================================
+#     DEVELOPER:  J.A. Runnells
+#          FILE:  data.py
+#        BRANCH: main
+# ==========================================
 records = [
     ('BK001', 'bkfast', 'Muffin', 'MUFFIN', 2.75),
     ('BK002', 'bkfast', 'House Bagel', 'BAGEL', 3.99),
