@@ -13,6 +13,7 @@ except ImportError:
 # TODO: rename 
 class Directories:
     TIMESTAMP = "TEST"
+    # TODO: rename -> DUMP_FILE_NAME ???
     FILE_NAME = f"dump_cafePOS_db-{TIMESTAMP}"
     PROJ_ROOT = "/cafePOS_db/cafePOS_db"
     DUMP_SQL = {"prefix": "/backup/", "file_name": FILE_NAME, "ext": ".sql", "mode": "w"}
