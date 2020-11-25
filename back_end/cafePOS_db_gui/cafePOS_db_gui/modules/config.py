@@ -271,7 +271,7 @@ class TreeViewWidget:
         "none": "none"
     }
     show = "headings"
-    HEADINGS = ["Item ID", "Category", "Name", "Label", "Price"]
+    HEADINGS = columns['str']
     # ===== UNUSED ======
     # displaycolumns = None
     # height = None
