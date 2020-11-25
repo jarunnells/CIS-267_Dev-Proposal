@@ -2,12 +2,16 @@
 #     DEVELOPER:  J.A. Runnells
 #          FILE:  config.py
 #        BRANCH: dev
+#
+# try:  # Python 2
+#     import Tkinter as tk
+# except ImportError:  # Python 3
+#     import tkinter as tk
+#
 # ==========================================
-try:
-    import tkinter as tk
-except ImportError:
-    import Tkinter as tk
-    
+import tkinter as tk
+from tkinter import ttk as ttk
+
 # GUI CONFIG SETTINGS
 
 # TODO: rename 

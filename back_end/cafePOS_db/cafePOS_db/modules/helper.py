@@ -34,14 +34,9 @@ class Default():
     # TBLS_SQL = r'./back_end/cafePOS_db/cafePOS_db/data/sqlite_script_tables.sql'
     # RECS_SQL = r'./back_end/cafePOS_db/cafePOS_db/data/sqlite_script_records.sql'
 
-# TODO: complete implementation
+# TODO: complete implementation -- under development -> NOT TESTED
 @staticmethod
 def clear(os_name=None):
-    if os_name == 'os':
-        # [ ] TODO: under development -> NOT TESTED
-        _ = system('cls' if name == 'nt' else 'clear')
-    elif os_name == 'sub':
-        # [ ] TODO: under development -> NOT TESTED
-        _ = call('cls' if name == 'nt' else 'clear', shell=True)
-    else:
-        print('\n' * 25)
+    if os_name == 'os': _ = system('cls' if name == 'nt' else 'clear')
+    elif os_name == 'sub': _ = call('cls' if name == 'nt' else 'clear', shell=True)
+    else: print('\n' * 25)

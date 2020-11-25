@@ -37,7 +37,6 @@ class Database:
         conn_status = "CONNECTED" if self.conn else "DISCONNECTED"
         return f"Database={self.db} :=: Connection={conn_status}"
 
-    # TODO: rename -> fetch_all_records()
     def fetch_all_records(self):
         """[summary]
 
@@ -48,7 +47,6 @@ class Database:
         rows = self.cur.fetchall()
         return rows
 
-    # TODO: rename -> insert_record()
     def insert_record(self, id_, category_, name_, label_, price_):
         """[summary]
 
@@ -62,7 +60,6 @@ class Database:
         self.cur.execute(q_.INSERT, (id_, category_, name_, label_, price_))
         self.conn.commit()
 
-    # TODO: rename -> remove_record()
     def remove_record(self, id_):
         """[summary]
 
@@ -72,7 +69,6 @@ class Database:
         self.cur.execute(q_.REMOVE, (id_,))
         self.conn.commit()
 
-    # TODO: rename -> update_record()
     def update_record(self, id_, category_, name_, label_, price_):
         """[summary]
 
@@ -88,7 +84,6 @@ class Database:
         )
         self.conn.commit()
 
-    # TODO: rename -> search_record_id()
     def search_record_id(self, id_):
         """[summary]
 
