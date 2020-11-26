@@ -311,6 +311,6 @@ class DBManager:
         if cur:
             self.cur.close()
             print(f" [+] Database CURSOR Closed -> {self.db}")
-        elif conn:
+        if conn:
             self.conn.close()
             print(f" [+] Database CONNECTION Closed -> {self.db}")

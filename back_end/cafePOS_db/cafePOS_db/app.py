@@ -26,13 +26,10 @@ def main():
         print()
         print(m.display())
         m.switch(choice := input('Selection: ').lower())
-        if choice == 'e':
-            show_menu = False
+        if choice == 'e': show_menu = False
         print()
 
-    if dbmgr.conn:
-        dbmgr.close_db(conn=True)
+    if dbmgr.conn: dbmgr.close_db(conn=True)
 
 
-if __name__ == '__main__':
-    main()
+if __name__ == '__main__': main()
