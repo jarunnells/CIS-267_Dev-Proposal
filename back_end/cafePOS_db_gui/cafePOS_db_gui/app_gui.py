@@ -160,8 +160,8 @@ class GUI(tk.Frame):
         self.file_.add_separator()
         self.file_.add_command(
             label = "Exit", 
-            # command=lambda: self.master.destroy()
-            command = lambda: self.master.quit()
+            command=lambda: self.master.destroy()
+            # command = lambda: self.master.quit()
         )
         # COMMANDS ADMIN
         self.admin_database.add_command(
