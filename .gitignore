@@ -9,6 +9,9 @@
 .LSOverride
 .vscode
 
+# PyCharm
+.idea/*
+
 # Icon must end with two \r
 Icon
 
