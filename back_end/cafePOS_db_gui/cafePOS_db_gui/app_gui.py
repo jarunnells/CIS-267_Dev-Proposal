@@ -566,7 +566,7 @@ class GUI(tk.Frame):
         self.clear_btn = ttk.Button(
             master = _MASTER, 
             text = b_.BTN['04']['text'].upper(), 
-            command = self.clear_text,
+            command = self.clear_entry_fields,
             # cnf = b_.cnf,
         )
         self.clear_btn.grid(
@@ -677,7 +677,7 @@ class GUI(tk.Frame):
 
     def populate_tree(self):
         """Populate Treview with data"""
-        self.clear_text()
+        self.clear_entry_fields()
         self.tree_view.delete(*self.tree_view.get_children())
         for i, row in enumerate(db.fetch_all_records()):
             if i % 2 == 0:
@@ -811,13 +811,16 @@ class GUI(tk.Frame):
                 )
                 self.populate_tree()
 
-    def clear_text(self):
+    def clear_entry_fields(self):
         """Clear text fields"""
         self.id_entry.delete(0, tk.END)
         self.category_combo.delete(0, tk.END)
         self.name_entry.delete(0, tk.END)
         self.pos_label_entry.delete(0, tk.END)
         self.price_entry.delete(0, tk.END)
+
+    def search_item(self):
+        pass
 
     def search_item_id(self):
         """Search by item ID"""
