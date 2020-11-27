@@ -22,25 +22,26 @@ class Directories:
     FILENAME = f"dump_{DATABASE}_db-{TIMESTAMP}"
     PROJ_ROOT = "back_end/cafePOS_db_gui/cafePOS_db_gui/"
     MODE = ("w", "wb", "r", "rb")
+    PREFIX = ("/backup/", "/data/")
     DB_ = {
-        "prefix": "/data/", 
+        "prefix": PREFIX[1], 
         "filename": DATABASE, 
         "ext": ".db",
     }
     SQL_ = {
-        "prefix": "/backup/", 
+        "prefix": PREFIX[0], 
         "filename": FILENAME, 
         "ext": ".sql", 
         "mode": MODE[0],
     }
     JSON_ = {
-        "prefix": "/data/", 
+        "prefix": PREFIX[1], 
         "filename": FILENAME, 
         "ext": ".json", 
         "mode": MODE[0],
     }
     CSV_ = {
-        "prefix": "/data/", 
+        "prefix": PREFIX[1], 
         "filename": FILENAME, 
         "ext": ".csv", 
         "mode": MODE[0],
