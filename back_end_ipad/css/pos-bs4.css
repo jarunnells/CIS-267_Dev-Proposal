@@ -1,0 +1,132 @@
+/**
+ * ============================================================================
+ *
+ *    Developer: J.A. Runnells
+ *      Updated: 2020-08-15 00:55
+ *    Last Push: 2020-08-15 00:55
+ *       Branch: dev-branch
+ *      License: {PLACEHOLDER}
+ *
+ * ============================================================================
+ */
+
+/**
+ * STYLESHEET IMPORTS
+ */
+/*@import url(styles.css);*/
+ 
+/**
+ * FONTS
+ */
+@import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');
+
+/* font: [font-style font-variant font-weight] font-size[/line-height] font-family */
+
+/**
+ * VARIABLES
+ */
+:root {
+    --main-bg-color: #757684;
+    --font-caveat: 'Caveat', monospace /* cursive */;
+    --font-POS-btn: monospace;
+}
+header {
+    --main-header-color: hsl(0, 0%, 96%); /* #F5F5F5 */
+}
+a {
+    --main-a-color: hsl(9, 100%, 64%); /* #FF6347 */
+}
+#receipt {
+    --main-receipt-color: white;
+}
+
+/**
+ * STYLING 
+ */
+/*html, body {
+    overflow: hidden;
+}*/
+body {
+    background-color: var(--main-bg-color);
+    font-size: 1em;
+    
+    /**
+     * TESTING
+     */
+     font-family: var(--font-caveat);
+}
+
+header > h1,h3 {
+    color: var(--main-header-color);
+    margin: 5px;
+    text-align: center;
+}
+
+header > h1 {
+    font-size: 2em;
+}
+
+header > h3 {
+    font-size: 1.5em;
+}
+
+a {
+    color: var(--main-a-color);
+}
+
+#admin > a {
+    color: #FFF;
+    text-decoration: none;
+}
+
+th {
+    text-align: center;
+}
+
+button {
+    font-family: var(--font-POS-btn);
+    height: 4em;
+    width: 120px;
+}
+
+pre {
+    color: var(--main-receipt-color);
+}
+
+#discountDollar, 
+#discountPercent, 
+#cancel, 
+#total, 
+#admin, 
+#disc,
+#bal {
+    height: 2.5em;
+    margin: 5px 0;
+}
+
+#receipt {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    color: var(--main-receipt-color);
+    float: right;
+    font-family: monospace;
+    font-size: 16px;
+    height: 500px;
+    resize: vertical;
+    overflow: auto;
+    padding: 5px;
+    /* TODO: achieve positioning with flexbox -- remove hardcoded margin-top value */
+    margin: -505px 20px 5px 5px;
+    text-align: center;
+    width: 400px;
+}
+
+.greet {
+    /*font: italic small-caps 2em/20px 'Caveat', cursive;*/
+    /*font-family: 'Caveat', cursive;*/
+    /*font-size: 2em;*/
+    /*font-style: italic;*/
+    /*font-variant: small-caps;*/
+    margin: 50px auto;
+    text-align: center;
+}

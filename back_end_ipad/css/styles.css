@@ -1,0 +1,70 @@
+/**
+ *  IMPORTS
+ */
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Sniglet&family=Caveat&family=Special+Elite&display=swap');
+
+/**
+ *  VARS 
+ */
+:root {
+    --font-caveat: 'Caveat', monospace /* cursive */;
+    --font-patrick: 'Patrick Hand', monospace /* cursive */;
+    --font-sniglet: 'Sniglet', monospace /* cursive */;
+    --font-elite: 'Special Elite', monospace /* cursive */;
+}
+
+body {
+    --admin-bg-color: hsl(207, 44%, 49%);
+    --admin-color: #FFF;
+    --index-bg-color: hsl(0, 68%, 52%); 
+    --index-color: var(--admin-color);
+    
+    /**
+     * OLD
+     */
+     --index-bg-color-OLD: hsl(0, 68%, 42%);
+}
+
+input {
+    --input-primary-color: #555;
+}
+
+a {
+    --anchor-color: hsl(248, 39%, 39%);
+}
+
+/**
+ *  COMMON STYLES
+ */
+h1 {
+    font-family: var(--font-patrick);
+}
+
+h3 {
+    font-family: var(--font-sniglet);
+}
+
+p {
+    font-family: var(--font-elite);
+}
+
+.align-center {
+    text-align: center;
+}
+
+a {
+    color: var(--anchor-color);
+    font-size: 2em;
+    text-decoration: none;
+}
+
+
+/**
+ *  index.html
+ */
+
+
+/**
+ *  admin.html
+ */
+ 

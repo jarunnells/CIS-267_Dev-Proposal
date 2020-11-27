@@ -1,0 +1,317 @@
+[
+  {
+    "id": "BK001",
+    "category": "bkfast",
+    "name": "Muffin",
+    "label": "MUFFIN",
+    "price": "2.75"
+  },
+  {
+    "id": "BK002",
+    "category": "bkfast",
+    "name": "Oatmeal",
+    "label": "OATS",
+    "price": "2.85"
+  },
+  {
+    "id": "BK003",
+    "category": "bkfast",
+    "name": "Breakfast Burrito",
+    "label": "B-BURRITO",
+    "price": "2.80"
+  },
+  {
+    "id": "BK004",
+    "category": "bkfast",
+    "name": "Breakfast Sandwich",
+    "label": "B-SAND",
+    "price": "2.80"
+  },
+  {
+    "id": "BK005",
+    "category": "bkfast",
+    "name": "Bagel",
+    "label": "BAGEL",
+    "price": "1.50"
+  },
+  {
+    "id": "BK006",
+    "category": "bkfast",
+    "name": "Yogurt",
+    "label": "YOGURT",
+    "price": "2.30"
+  },
+  {
+    "id": "HB001",
+    "category": "bev_hot",
+    "name": "Coffee",
+    "label": "COFFEE",
+    "price": "1.99"
+  },
+  {
+    "id": "HB002",
+    "category": "bev_hot",
+    "name": "Hot Tea",
+    "label": "HOT TEA",
+    "price": "1.99"
+  },
+  {
+    "id": "HB003",
+    "category": "bev_hot",
+    "name": "Hot Cocoa",
+    "label": "COCOA",
+    "price": "1.99"
+  },
+  {
+    "id": "CB001",
+    "category": "bev_cold",
+    "name": "Aquafina",
+    "label": "AQUA H20",
+    "price": "1.00"
+  },
+  {
+    "id": "CB002",
+    "category": "bev_cold",
+    "name": "Life Water",
+    "label": "LIFE H20",
+    "price": "1.87"
+  },
+  {
+    "id": "CB003",
+    "category": "bev_cold",
+    "name": "Sobe",
+    "label": "SOBE",
+    "price": "2.34"
+  },
+  {
+    "id": "CB004",
+    "category": "bev_cold",
+    "name": "5hr Energy",
+    "label": "5 HOUR",
+    "price": "2.80"
+  },
+  {
+    "id": "CB005",
+    "category": "bev_cold",
+    "name": "Rockstar",
+    "label": "ROCK⭐️",
+    "price": "2.80"
+  },
+  {
+    "id": "CB006",
+    "category": "bev_cold",
+    "name": "Milk",
+    "label": "MILK",
+    "price": "1.87"
+  },
+  {
+    "id": "CB007",
+    "category": "bev_cold",
+    "name": "Chocolate Milk",
+    "label": "CHOC MILK",
+    "price": "1.87"
+  },
+  {
+    "id": "CB008",
+    "category": "bev_cold",
+    "name": "Juice",
+    "label": "JUICE",
+    "price": "1.87"
+  },
+  {
+    "id": "DE001",
+    "category": "deli",
+    "name": "Noodle Cup",
+    "label": "NOODLE CUP",
+    "price": "1.00"
+  },
+  {
+    "id": "DE002",
+    "category": "deli",
+    "name": "Soup",
+    "label": "SOUP",
+    "price": "2.80"
+  },
+  {
+    "id": "DE003",
+    "category": "deli",
+    "name": "Small Salad",
+    "label": "SM SALAD",
+    "price": "2.10"
+  },
+  {
+    "id": "DE004",
+    "category": "deli",
+    "name": "Large Salad",
+    "label": "LG SALAD",
+    "price": "5.00"
+  },
+  {
+    "id": "DE005",
+    "category": "deli",
+    "name": "Deli Sand",
+    "label": "DELI SAND",
+    "price": "4.44"
+  },
+  {
+    "id": "DE001",
+    "category": "deli",
+    "name": "Fresh Whole Fruit",
+    "label": "FRESH FRUIT",
+    "price": "1.00"
+  },
+  {
+    "id": "DE002",
+    "category": "deli",
+    "name": "Fruit Cup",
+    "label": "FRUIT CUP",
+    "price": "2.30"
+  },
+  {
+    "id": "DE003",
+    "category": "deli",
+    "name": "Hummus",
+    "label": "HUMMUS",
+    "price": "2.69"
+  },
+  {
+    "id": "DE004",
+    "category": "deli",
+    "name": "Guacamole",
+    "label": "GUAC",
+    "price": "2.69"
+  },
+  {
+    "id": "DE005",
+    "category": "deli",
+    "name": "String Cheese",
+    "label": "STRING CHZ",
+    "price": "0.75"
+  },
+  {
+    "id": "DE006",
+    "category": "deli",
+    "name": "Veggies Snack Pack",
+    "label": "VEGGIES",
+    "price": "1.49"
+  },
+  {
+    "id": "DE007",
+    "category": "deli",
+    "name": "Sargento Snack Pack",
+    "label": "SARGENTO",
+    "price": "1.49"
+  },
+  {
+    "id": "SN001",
+    "category": "snack",
+    "name": "House Cookie",
+    "label": "HOUSE COOKIE",
+    "price": "1.64"
+  },
+  {
+    "id": "SN008",
+    "category": "snack",
+    "name": "Chips",
+    "label": "CHIPS",
+    "price": "0.65"
+  },
+  {
+    "id": "SN009",
+    "category": "snack",
+    "name": "House Baked Cookie",
+    "label": "HOUSE COOKIE",
+    "price": "1.64"
+  },
+  {
+    "id": "SN010",
+    "category": "snack",
+    "name": "Oreo Cookie",
+    "label": "OREO COOKIES",
+    "price": "0.75"
+  },
+  {
+    "id": "SN011",
+    "category": "snack",
+    "name": "M&M Cookie",
+    "label": "M&M COOKIE",
+    "price": "0.75"
+  },
+  {
+    "id": "SN012",
+    "category": "snack",
+    "name": "Chips Ahoy",
+    "label": "CHIPS AHOY",
+    "price": "0.75"
+  },
+  {
+    "id": "SN013",
+    "category": "snack",
+    "name": "Rice Krispy",
+    "label": "RICE KRISPY",
+    "price": "0.75"
+  },
+  {
+    "id": "SN014",
+    "category": "snack",
+    "name": "Candy",
+    "label": "CANDY",
+    "price": "0.75"
+  },
+  {
+    "id": "SN015",
+    "category": "snack",
+    "name": "Kind Bar",
+    "label": "KIND BAR",
+    "price": "2.49"
+  },
+  {
+    "id": "SN016",
+    "category": "snack",
+    "name": "Oreo Pie",
+    "label": "OREO PIE",
+    "price": "2.99"
+  },
+  {
+    "id": "CD001",
+    "category": "condiment",
+    "name": "Salsa",
+    "label": "SALSA",
+    "price": "0.00"
+  },
+  {
+    "id": "CD002",
+    "category": "condiment",
+    "name": "Plain Cream Cheese",
+    "label": "PLAIN CRM CHZ",
+    "price": "0.75"
+  },
+  {
+    "id": "CD003",
+    "category": "condiment",
+    "name": "House Cream Cheese",
+    "label": "CREAM CHEESE",
+    "price": "0.75"
+  },
+  {
+    "id": "CD004",
+    "category": "condiment",
+    "name": "Granola",
+    "label": "GRANOLA",
+    "price": "0.50"
+  },
+  {
+    "id": "CD005",
+    "category": "condiment",
+    "name": "Crackers",
+    "label": "CRACKERS",
+    "price": "0.00"
+  },
+  {
+    "id": "CD006",
+    "category": "condiment",
+    "name": "Dressing",
+    "label": "DRESSING",
+    "price": "0.75"
+  }
+]
