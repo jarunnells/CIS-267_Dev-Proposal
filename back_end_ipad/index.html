@@ -1,0 +1,351 @@
+<!DOCTYPE HTML>
+
+<!-- 
+===============================================================================
+
+      Developer: J.A. Runnells
+        Updated: {PLACEHOLDER}
+      Last Push: {PLACEHOLDER}
+         Branch: throw-away
+        License: {PLACEHOLDER}
+    
+===============================================================================
+-->
+
+<html class="no-js" lang="en-US">
+
+    <head>
+        <meta charset="utf-8">
+        <title>Arty's POS | AimsCC Fort Lupton</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <meta property="og:title" content="">
+        <meta property="og:type" content="">
+        <meta property="og:url" content="">
+        <meta property="og:image" content="">
+        
+        <!--
+        <link rel="manifest" href="site.webmanifest">
+        <link rel="apple-touch-icon" href="icon.png">
+        -->
+        <!-- Place favicon.ico in the root directory -->
+        
+        <!-- Styles -->
+        <link rel="stylesheet" href="css/styles.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!--
+        <link rel="stylesheet" href="path/to/styles.css">
+        -->
+        
+        <!-- Scripts -->
+        <script src="js/userLogin.js" defer></script>
+        <!--
+        <script src="path/to/script.js" defer></script>
+        -->
+        
+        <meta name="theme-color" content="#fafafa">
+        <style>
+            body {
+                background-color: var(--index-bg-color);
+                color: var(--index-color);
+            }
+            
+            input[type=text], 
+            input[type=password] {
+                /*width: 25%;*/
+                width: 100%;
+                padding: 12px 20px;
+                margin: 8px 0;
+                box-sizing: border-box;
+                border: 3px solid hsl(207, 44%, 49%); /* #ccc */
+                -webkit-transition: 0.5s;
+                transition: 0.5s;
+                outline: none;
+            }
+            
+            input[type=text]:focus, 
+            input[type=password]:focus {
+                border: 3px solid var(--input-primary-color);
+            }
+            
+            input[type=submit],
+            input[type=reset] {
+                background-color: var(--input-primary-color);
+                border-radius: 12px;
+                border: none;
+                color: var(--index-color);
+                padding: 15px 32px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+            }
+            
+            #login {
+                margin: auto;
+                width: 75%;
+            }
+            
+            /* == MODAL ============= */
+            
+            #btn-login-fancy {
+                display: inline-block;
+                border-radius: 4px;
+                background-color: royalblue;
+                border: none;
+                color: #FFF;
+                text-align: center;
+                font-size: 18px;
+                padding: 10px;
+                width: 150px;
+                transition: all 0.5s;
+                cursor: pointer;
+                margin: 5px;
+            }
+            
+            #btn-login-fancy span {
+                cursor: pointer;
+                display: inline-block;
+                position: relative;
+                transition: 0.5s;
+            }
+            
+            #btn-login-fancy span:after {
+                content: '\00bb';
+                position: absolute;
+                opacity: 0;
+                top: 0;
+                right: -20px;
+                transition: 0.5s;
+            }
+            
+            #btn-login-fancy:hover span {
+                padding-right: 25px;
+            }
+            
+            #btn-login-fancy:hover span:after {
+                opacity: 1;
+                right: 0;
+            }
+            #btn-login-fancy:hover {
+                background-color: #FFF;
+                color: royalblue;
+            }
+            #div-login-btn {
+                margin: 25px;
+            }
+            
+            /**
+             * VARIABLES
+             */
+            :root {
+                --bg-text-color: whitesmoke;
+                --main-bg-color: coral;
+            }
+            
+            /**
+             * ANIMATIONS
+             */
+            @-webkit-keyframes modalActivate {
+                from { opacity: 0 }
+                to { opacity: 1 }
+            }
+            @-o-keyframes modalActivate {
+                from { opacity: 0 }
+                to { opacity: 1 }
+            }
+            @-moz-keyframes modalActivate {
+                from { opacity: 0 }
+                to { opacity: 1 }
+            }
+            @keyframes modalActivate {
+                from { opacity: 0 }
+                to { opacity: 1 }
+            }
+            
+            /**
+             * STYLES ==> HTML, BODY, etc..
+             */
+            .modal-container {
+                display: none;
+                position: fixed;
+                z-index: 1;
+                left: 0;
+                top: 0;
+                height: 100%;
+                width: 100%;
+                overflow: auto;
+                background-color: rgba(0,0,0,0.5);
+            }
+            .modal-content {
+                background-color: #F4F4F4;
+                margin: 10% auto;  /* to center */
+                width: 415px;  /* dynamic: 70% */ /* fixed:  */
+                box-shadow: 0 5px 8px 0 rgba(0,0,0,0.2), 0 7px 20px 0 rgba(0,0,0,0.17);  /*box-shadow: 0px 3px 5px #333;*/
+                -webkit-animation-name: modalAcivate;
+                -moz-animation-name: modalAcivate;
+                -o-animation-name: modalAcivate;
+                animation-name: modalAcivate;
+                -webkit-animation-duration: 1s;
+                -moz-animation-duration: 1s;
+                -o-animation-duration: 1s;
+                animation-duration: 1s;
+            }
+            .modal-header h2, .modal-footer h3 {
+                margin: 0;
+            }
+            .modal-header {
+                background-color: var(--index-bg-color);
+                padding: 15px;
+                color: var(--bg-text-color);
+            }
+            .modal-body {
+                padding: 10px 20px;
+                color: rgba(75,75,75,0.95)
+            }
+            .modal-footer {
+                background-color: var(--main-bg-color);
+                padding: 10px;
+                color: var(--bg-text-color);
+                text-align: center;
+            }
+            .closeBtn {
+                color: #FFF;
+                float: right;
+                font-size: 30px;
+            }
+            
+            .closeBtn:hover, .closeBtn:focus {
+                color: #404040;
+                text-decoration: none;
+                cursor: pointer;
+                }
+            
+        </style>
+    </head>
+
+    <body>
+    
+        <header class="align-center">
+            <h1>☕️ Arty's Café 🥯</h1>
+            <!-- <h1>☕️ Arty's Corner 🥯</h1> -->
+            <!-- <h3>AimsCC 🎓 Fort Lupton</h3>  -->
+        </header>
+        
+        <br /><br />
+        
+        <div class="align-center">
+            <p>⚠️ UNDER DEV ⚠️</p>
+            <p><a href="html/pos-bs4.html">Arty's POS</a></p>
+            <p><a href="html/admin.html">ADMIN</a></p>
+            <p><a href="html/jsonTest.html">JSON Test</a></p>
+        </div>
+        
+        <div id="login" class="align-center">
+            <form method="" action="html/admin.html">
+                <label for="username"></label>
+                <input type="text" name="username" id="username" placeholder="Username..."
+                    style="width:250px;" required /><br />
+                <label for="pwd"></label>
+                <input type="password" name="pwd" id="pwd" placeholder="Password..."
+                    style="width:250px;" required /><br />
+                <input type="submit" id="ulogin" name="user-login" value="LOGIN" />
+                <input type="reset" name="reset" value="RESET" />
+            </form>
+        </div>
+        
+        <div id="div-login-btn" class="align-center">
+            <button id="btn-login-fancy" style="vertical-align:middle;" onclick="alert('LOGIN Clicked')">
+                <span><i class="material-icons" style="font-size:14px;">login</i> LOGIN </span></button>
+        </div>
+        <div id="modal" class="modal-container">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="closeBtn">&times;</span>
+                    <h2>Modal Header</h2>
+                </div>
+                <div class="modal-body">
+                    <h3>WELCOME!</h3>
+                    <p>⚠️ UNDER DEV ⚠️</p>
+                    <p>Please login....</p>
+                    <label for="usr">USERNAME</label>
+                    <input type="text" name="usr" placeholder="Username..." required/>
+                    <br />
+                    <label for="pwd">PASSWORD</label>
+                    <input type="password" name="pwd" placeholder="Password..." required/>
+                    <br />
+                    <!-- <button id="submit" type="submit">SUBMIT</button> -->
+                    <div class="align-center">
+                        <button id="btn-login-fancy" style="vertical-align:middle;" onclick="alert('SUBMIT Clicked')"><span><i class="material-icons" style="font-size:14px;">login</i> SUBMIT </span></button>    
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <h3>Modal Footer</h3>
+                </div>
+            </div>
+        </div>
+        
+        <script>
+            /**
+             * Assign modal element
+             */
+            const modalElem = document.querySelector("#modal");
+            /**
+             * Assign modal activate element
+             */
+            const modalBtn = document.querySelector("#btn-login-fancy");
+            /**
+             * Assign close button element
+             */
+            const closeBtn = document.querySelector(".closeBtn");
+            
+            /**
+             * EVENT: onClick("modalBtn").activate()
+             */
+            modalBtn.addEventListener("click", e => {
+                modalElem.style.display = "block";
+            });
+            /**
+             * EVENT: onClick("closeBtn").deavtivate()
+             */
+            closeBtn.addEventListener("click", e => {
+                modalElem.style.display = "none";
+            });
+            
+            window.addEventListener("click", e => {
+                if (e.target === modal) {
+                    modalElem.style.display = "none";
+                }
+            });
+            
+            /**
+             * @function activateModal - Activate modal onClick
+             * @returns void
+             */
+            // function activateModal() {
+            //     // console.log("activateModal()");
+            //     modalElem.style.display = "block";
+            // }
+            /**
+             * @function deactivateModal - Deactivate modal onClick
+             * @returns void
+             */
+            // function deactivateModal() {
+            //     modalElem.style.display = "none";
+            // }
+            /**
+             * @function outsideClick(e) - Deactivate modal on outsideClick
+             * @returns void
+             */
+            // function outsideClick(e) {
+            //     if (e.target === modal) {
+            //         modalElem.style.display = "none";
+            //     }
+            // }
+        </script>
+        
+    </body>
+
+</html>
+    

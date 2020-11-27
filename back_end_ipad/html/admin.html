@@ -1,0 +1,299 @@
+<!DOCTYPE HTML>
+
+<!-- 
+===============================================================================
+
+      Developer: J.A. Runnells
+        Updated: {PLACEHOLDER}
+      Last Push: {PLACEHOLDER}
+         Branch: dev-branch
+        License: {PLACEHOLDER}
+    
+===============================================================================
+-->
+
+<html class="no-js" lang="en-US">
+
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        
+        <!-- External Styling -->
+        <link rel="stylesheet" href="../css/styles.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!--
+        <link rel="stylesheet" href="path/to/styles.css">
+        -->
+        
+        <!-- External Scripts -->
+        <script src="../js/vendor/modernizr-3.11.2.min.js" defer></script>
+        <script src="../js/vendor/plugins.js" defer></script>
+        <script src="../js/jsonScript.js" defer></script>
+       
+        <!-- CDN Scripts -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" 
+                integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" 
+                crossorigin="anonymous" defer></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" 
+                integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" 
+                crossorigin="anonymous" defer></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" 
+                integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" 
+                crossorigin="anonymous" defer></script>
+        
+        <meta name="theme-color" content="#fafafa">
+        <title>Arty's POS | AimsCC Fort Lupton</title>
+        
+        <style>
+            body {
+                background-color: var(--admin-bg-color);
+                color: var(--admin-color);
+            }
+            table {
+                background-color: lightgray;
+            }
+            #item-form, 
+            #bal-form {
+                display: none;
+            }
+            .calc {
+                width: 15%;
+                float: left;
+                margin: 15px;
+            }
+            .calc-input {
+                margin-bottom: 5px;
+            }
+            #calc-output {
+                margin: auto;
+                margin-top: 200px;
+                background-color: hsl(0, 0%, 25%);
+                width: 50%;
+                float: right;
+                height: 200px;
+            }
+            #calc-output > p {
+                margin-top: 25px;
+                color: limegreen;
+                font-size: 28px;
+                text-align: center;
+            }
+            #total {
+                margin-top: 30px;
+                font-weight: bold;
+                
+            }
+            label {
+                margin-bottom: 0px;
+            }
+        </style>
+        <script>
+            // USER and PASS HASHING....
+            // Vanilla .js
+            // Convert to 32bit integer 
+            function stringToHash(str) { 
+                  
+                var hash = 0,
+                    len = str.length; 
+                  
+                if (len == 0) return hash; 
+                  
+                for (let i = 0; i < len; i++) { 
+                    char = str.charCodeAt(i); 
+                    hash = ((hash << 5) - hash) + char; 
+                    hash = hash & hash; 
+                }
+                return hash; 
+            } 
+              
+            // String printing in hash 
+            let user = "admin",
+                pass = "12345";
+            
+            console.log(`userHash: ${stringToHash(user)}  passHash: ${stringToHash(pass)}`);
+            
+            
+            // // Node.js
+            // // Importing 'crypto' module 
+            // const crypto = require('crypto'), 
+          
+            // // Returns the names of supported hash algorithms  
+            // // such as SHA1,MD5 
+            // let hash = crypto.getHashes();
+            
+            // // Create hash of SHA1 type 
+            // let user = "admin",
+            //     pass = "12345";
+          
+            // // 'digest' is the output of hash function containing  
+            // // only hexadecimal digits 
+            // let hashUsr = crypto.createHash('sha1').update(user).digest('hex');
+            // //let hashPas = crypto.createHash('sha1').update(pass).digest('hex');
+            
+            // console.log(hash);
+        </script>
+    </head>
+
+    <body>
+    
+        <header class="align-center">
+            <h1>☕️ Arty's Corner 🥯</h1>
+            <h3>AimsCC 🎓 Fort Lupton</h3>
+            <h3>ADMIN SCREEN</h3>
+        </header>
+        
+        <br /><br />
+        
+        <div class="align-center">
+            <p>⚠️ UNDER DEV ⚠️</p>
+            <p><a href="../index.html">LOGIN</a></p>
+            <p><a href="pos-bs4.html">Arty's POS</a></p>
+            <p><a href="../html/jsonTest.html">JSON Test</a></p>
+        </div>
+        
+        <div class="container mt-4">
+            <h1 class="display-4 text-center">
+                <i class=""></i>
+                Menu Item List
+            </h1>
+            <!-- <button id="btnAdd" class="btn btn-success btn-lg displayAdd" onclick="toggleForm('item-form')"><i class="material-icons" style="font-size:16px">add_circle_outline</i></button>
+            <button id="btnUpdate" class="btn btn-success btn-lg displayAdd" onclick="toggleForm('item-form')"><i class="material-icons" style="font-size:16px">update</i></button> -->
+            
+            <button id="btnAdd" class="btn btn-dark btn-md displayAdd" onclick="toggleElemByID('#item-form')"><i class="material-icons" style="font-size:12px">add_circle_outline</i> ITEM</button>
+            <button id="btnCalc" class="btn btn-dark btn-md displayCalc" onclick="toggleElemByID('#bal-form')">BALANCE</button>
+            
+            <form id="bal-form" method="" action="">
+                <div class="form-group bills calc">
+                    <h3>BILLS</h3>
+                    <label for="bill-100">100s</label>
+                    <div id="bill-100" class="form-group calc-input">
+                        <input type="number" id="bundle-100" class="form-control" placeholder="Bundles count" />
+                        <input type="number" id="loose-100" class="form-control" placeholder="Loose count" />
+                    </div>
+                    <label for="bill-50">50s</label>
+                    <div id="bill-50" class="form-group calc-input">
+                        <input type="number" id="bundle-50" class="form-control" placeholder="Bundles count" />
+                        <input type="number" id="loose-50" class="form-control" placeholder="Loose count" />
+                    </div>
+                    <label for="bill-20">20s</label>
+                    <div id="bill-20" class="form-group calc-input">
+                        <input type="number" id="bundle-20" class="form-control" placeholder="Bundles count" />
+                        <input type="number" id="loose-20" class="form-control" placeholder="Loose count" />
+                    </div>
+                    <label for="bill-10">10s</label>
+                    <div id="bill-10" class="form-group calc-input">
+                        <input type="number" id="bundle-10" class="form-control" placeholder="Bundles count" />
+                        <input type="number" id="loose-10" class="form-control" placeholder="Loose count" />
+                    </div>
+                    <label for="bill-5">5s</label>
+                    <div id="bill-5" class="form-group calc-input">
+                        <input type="number" id="bundle-5" class="form-control" placeholder="Bundles count" />
+                        <input type="number" id="loose-5" class="form-control" placeholder="Loose count" />
+                    </div>
+                    <label for="bill-1">1s</label>
+                    <div id="bill-1" class="form-group calc-input">
+                        <input type="number" id="bundle-1" class="form-control" placeholder="Bundles count" />
+                        <input type="number" id="loose-1" class="form-control" placeholder="Loose count" />
+                    </div>
+                </div> <!-- END BILLS CALC -->
+                <div class="form-group coin calc">
+                    <h3>COIN</h3>
+                    <label for="coin-s">Dollar</label>
+                    <div id="coin-s" class="form-group calc-input"> <!-- S = Silver Dollar -->
+                        <input type="number" id="bundle-s" class="form-control" placeholder="Bundles count" />
+                        <input type="number" id="loose-s" class="form-control" placeholder="Loose count" />
+                    </div>
+                    <label for="coin-f">Half Dollars</label>
+                    <div id="coin-f" class="form-group calc-input">
+                        <input type="number" id="bundle-f" class="form-control" placeholder="Bundles count" />
+                        <input type="number" id="loose-f" class="form-control" placeholder="Loose count" />
+                    </div>
+                    <label for="coin-q">Quarters</label>
+                    <div id="coin-q" class="form-group calc-input">
+                        <input type="number" id="bundle-q" class="form-control" placeholder="Bundles count" />
+                        <input type="number" id="loose-q" class="form-control" placeholder="Loose count" />
+                    </div>
+                    <label for="coin-d">Dimes</label>
+                    <div id="coin-d" class="form-group calc-input">
+                        <input type="number" id="bundle-d" class="form-control" placeholder="Bundles count" />
+                        <input type="number" id="loose-d" class="form-control" placeholder="Loose count" />
+                    </div>
+                    <label for="coin-n">Nickels</label>
+                    <div id="coin-n" class="form-group calc-input">
+                        <input type="number" id="bundle-n" class="form-control" placeholder="Bundles count" />
+                        <input type="number" id="loose-n" class="form-control" placeholder="Loose count" />
+                    </div>
+                    <label for="coin-p">Pennies</label>
+                    <div id="coin-p" class="form-group calc-input">
+                        <input type="number" id="bundle-p" class="form-control" placeholder="Bundles count" />
+                        <input type="number" id="loose-p" class="form-control" placeholder="Loose count" />
+                    </div>
+                </div> <!-- END COIN CALC -->
+                <div id="calc-output" class="form-group">
+                    <p>CALC OUTPUT</p>
+                    <p id="total">$ 150.00</p>
+                </div> <!-- END CALC OUTPUT -->
+            </form> <!-- END FORM CALC -->
+            <form id="item-form" method="" action="">
+                <div class="form-group">
+                    <!-- <label for="itemID">ItemID:</label> -->
+                    <input type="text" id="itemID" class="form-control" placeholder="ItemID..." />
+                </div>
+                <div class="form-group">
+                    <!-- <label for="category">Category:</label> -->
+                    <input type="text" id="category" list="categories" class="form-control" placeholder="Category..." />
+                    <datalist id="categories">
+                        <option value="bkfast"/>
+                        <option value="bev_hot"/>
+                        <option value="bev_cold"/>
+                        <option value="deli"/>
+                        <option value="snack"/>
+                        <option value="condiment"/>
+                    </datalist>
+                </div>
+                <div class="form-group">
+                    <!-- <label for="item">Name:</label> -->
+                    <input type="text" id="name" class="form-control" placeholder="Name..." />
+                </div>
+                <div class="form-group">
+                    <!-- <label for="item">Label:</label> -->
+                    <input type="text" id="label" class="form-control" placeholder="Label..." />
+                </div>
+                <div class="form-group">
+                    <!-- <label for="item">Price:</label> -->
+                    <input type="text" id="price" class="form-control" placeholder="Price..." />
+                </div>
+                <input type="submit" name="addItem" value="Add Item" class="btn btn-success btn-block" onclick="toggleElemByID('#item-form')" />
+            </form> <!-- END ITEM FORM -->
+            <br />
+            <table id="items-table" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>ItemID</th>
+                        <th>Category</th>
+                        <th>Name</th>
+                        <th>Label</th>
+                        <th>Price</th>
+                        <th></th>
+                        <th>
+                            <button id="addItem" type="submit" class="btn btn-primary btn-sm displayAdd"         
+                                    onclick="alert('ADD ITEM Clicked')"><i class="material-icons" style="font-size:12px">add_circle_outline</i> ITEM</button>
+                            <!-- <a href="#" class="btn btn-primary btn-sm displayAdd" onclick="toggleElemByID('#item-form')">
+                                <i class="material-icons" style="font-size:12px">add_circle_outline</i> ITEM</a> -->
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="item-list"></tbody>
+            </table> <!-- END ITEMS TABLE -->
+        </div>
+        
+    </body>
+
+</html>

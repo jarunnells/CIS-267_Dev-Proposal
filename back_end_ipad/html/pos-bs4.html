@@ -1,0 +1,155 @@
+<!DOCTYPE HTML>
+
+<!-- 
+===============================================================================
+
+      Developer: J.A. Runnells
+        Updated: 2020-08-15 03:20
+      Last Push: 2020-08-15 03:20
+         Branch: dev-branch
+        License: {PLACEHOLDER}
+    
+===============================================================================
+-->
+
+<html lang="en-US">
+    
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        
+        <!-- External Styling -->
+        <link rel="stylesheet" href="../css/vendor/normalize.css">
+        <link rel="stylesheet" href="../css/vendor/main.css">
+        <link rel="stylesheet" href="../css/pos-bs4.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        
+        <!-- External Scripts -->
+        <script src="../js/vendor/modernizr-3.11.2.min.js" defer></script>
+        <script src="../js/vendor/plugins.js" defer></script>
+        <script src="../js/pos-bs4.js" defer></script>
+        <!--  
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" defer></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        -->
+        
+        <title>Bootstrap 4</title>
+        
+    </head>
+  
+    <body onload="parseItems()">
+      
+        <header>
+            <h1>mzTechSolutions</h1>
+            <h3>Point of Sale Prototype</h3>
+        </header>
+        
+        <div class="greet"></div>
+        <br />
+        <div class="pos table-responsive col-md-8">
+            <span>PointOfSale</span>
+            <table>
+                <tr>
+                    <th>Row01</th>
+                    <th>Row02</th>
+                    <th>Row03</th>
+                    <th>Row04</th>
+                    <th>Row05</th>
+                    <th>Row06</th>
+                </tr>
+                <tr>    <!-- onclick="onClickTestVanilla(this.id,this.name)" -->
+                    <td><button id="01" name="btn01" type="button" class="btn btn-success btn-lg" onclick="buttonUIClicked(event)">Item01</button></td>
+                    <td><button id="02" name="btn02" type="button" class="btn btn-success btn-lg" onclick="buttonUIClicked(event)">Item02</button></td>
+                    <td><button id="03" name="btn03" type="button" class="btn btn-success btn-lg" onclick="buttonUIClicked(event)">Item03</button></td>
+                    <td><button id="04" name="btn04" type="button" class="btn btn-success btn-lg" onclick="buttonUIClicked(event)">Item04</button></td>
+                    <td><button id="05" name="btn05" type="button" class="btn btn-success btn-lg" onclick="buttonUIClicked(event)">Item05</button></td>
+                    <td><button id="06" name="btn06" type="button" class="btn btn-success btn-lg" onclick="buttonUIClicked(event)">Item06</button></td>
+                </tr>
+                <tr>
+                    <td><button id="07" name="btn07" type="button" class="btn btn-info btn-lg" onclick="buttonUIClicked(event)">Item07</button></td>
+                    <td><button id="08" name="btn08" type="button" class="btn btn-info btn-lg" onclick="buttonUIClicked(event)">Item08</button></td>
+                    <td><button id="09" name="btn09" type="button" class="btn btn-info btn-lg" onclick="buttonUIClicked(event)">Item09</button></td>
+                    <td><button id="10" name="btn10" type="button" class="btn btn-info btn-lg" onclick="buttonUIClicked(event)">Item10</button></td>
+                    <td><button id="11" name="btn11" type="button" class="btn btn-info btn-lg" onclick="buttonUIClicked(event)">Item11</button></td>
+                    <td><button id="12" name="btn12" type="button" class="btn btn-info btn-lg" onclick="buttonUIClicked(event)">Item12</button></td>
+                </tr>
+                <tr>
+                    <td><button id="13" name="btn13" type="button" class="btn btn-warning btn-lg" onclick="buttonUIClicked(event)">Item13</button></td>
+                    <td><button id="14" name="btn14" type="button" class="btn btn-warning btn-lg" onclick="buttonUIClicked(event)">Item14</button></td>
+                    <td><button id="15" name="btn15" type="button" class="btn btn-warning btn-lg" onclick="buttonUIClicked(event)">Item15</button></td>
+                    <td><button id="16" name="btn16" type="button" class="btn btn-warning btn-lg" onclick="buttonUIClicked(event)">Item16</button></td>
+                    <td><button id="17" name="btn17" type="button" class="btn btn-warning btn-lg" onclick="buttonUIClicked(event)">Item17</button></td>
+                    <td><button id="18" name="btn18" type="button" class="btn btn-warning btn-lg" onclick="buttonUIClicked(event)">Item18</button></td>
+                </tr>
+                <tr>
+                    <td><button id="19" name="btn19" type="button" class="btn btn-danger btn-lg" onclick="buttonUIClicked(event)">Item19</button></td>
+                    <td><button id="20" name="btn20" type="button" class="btn btn-danger btn-lg" onclick="buttonUIClicked(event)">Item20</button></td>
+                    <td><button id="21" name="btn21" type="button" class="btn btn-danger btn-lg" onclick="buttonUIClicked(event)">Item21</button></td>
+                    <td><button id="22" name="btn22" type="button" class="btn btn-danger btn-lg" onclick="buttonUIClicked(event)">Item22</button></td>
+                    <td><button id="23" name="btn23" type="button" class="btn btn-danger btn-lg" onclick="buttonUIClicked(event)">Item23</button></td>
+                    <td><button id="24" name="btn24" type="button" class="btn btn-danger btn-lg" onclick="buttonUIClicked(event)">Item24</button></td>
+                </tr>
+                <tr>
+                    <td><button id="25" name="btn25" type="button" class="btn btn-dark btn-lg" onclick="buttonUIClicked(event)">Item25</button></td>
+                    <td><button id="26" name="btn26" type="button" class="btn btn-dark btn-lg" onclick="buttonUIClicked(event)">Item26</button></td>
+                    <td><button id="27" name="btn27" type="button" class="btn btn-dark btn-lg" onclick="buttonUIClicked(event)">Item27</button></td>
+                    <td><button id="28" name="btn28" type="button" class="btn btn-dark btn-lg" onclick="buttonUIClicked(event)">Item28</button></td>
+                    <td><button id="29" name="btn29" type="button" class="btn btn-dark btn-lg" onclick="buttonUIClicked(event)">Item29</button></td>
+                    <td><button id="30" name="btn30" type="button" class="btn btn-dark btn-lg" onclick="buttonUIClicked(event)">Item30</button></td>
+                </tr>
+                <tr>
+                    <!-- <td><button id="discountDollar" name="discountDollar" type="button" class="btn btn-primary btn-lg" onclick="discount().dollar()">$ DISC</button></td>
+                    <td><button id="discountPercent" name="discountPercent" type="button" class="btn btn-primary btn-lg" onclick="discount().percent()">% DISC</button></td> -->
+                    <td>
+                    <div class="btn-group">
+                        <button id="admin" type="button" class="btn btn-danger btn-lg dropdown-toggle" data-toggle="dropdown">ADMIN</button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#" onclick="alert('<Add New Item> clicked')">Add New Item</a>
+                            <a class="dropdown-item" href="#" onclick="alert('<Item Inventory> clicked')">Item Inventory</a>
+                            <a class="dropdown-item" href="#" onclick="alert('<Balance Sheet> clicked')">Balance Sheet</a>
+                            <a class="dropdown-item" href="#" onclick="alert('<Item04> clicked')">Item04</a>
+                            <a class="dropdown-item" href="#" onclick="alert('<Item05> clicked')">Item05</a>
+                        </div>
+                    </div>
+                        <!-- <button id="admin" name="admin" type="button" class="btn btn-danger btn-lg" onclick="admin(event)"><a href="admin.html">ADMIN</a></button> -->
+                        <!-- <button id="admin" name="admin" type="button" class="btn btn-danger btn-lg" onclick="admin(event)">ADMIN</button> -->
+                    </td>
+                    <td><button id="discountDollar" name="discountDollar" type="button" class="btn btn-primary btn-lg" onclick="discount().dollar()">$ DISC</button></td>
+                    <td><button id="discountPercent" name="discountPercent" type="button" class="btn btn-primary btn-lg" onclick="discount().percent()">% DISC</button></td>
+                    <td>
+                    <!-- <div class="btn-group">
+                        <button id="admin" type="button" class="btn btn-success btn-lg dropdown-toggle" data-toggle="dropdown">DISC</button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#" onclick="discount().dollar()"><span class="disc-dec">$</span> OFF</a>
+                            <a class="dropdown-item" href="#" onclick="discount().percent()"><span class="disc-dec">%</span> OFF</a>
+                        </div>
+                    </div> -->
+                        <!-- <button id="bal" name="balance" type="button" class="btn btn-success btn-lg" onclick="alert('<BALANCE> Clicked!')">BALANCE</button> -->
+                    </td>
+                    <td><button id="cancel" name="cancel" type="button" class="btn btn-primary btn-lg" onclick="clearReceipt()">CANCEL</button></td>
+                    <td><button id="total" name="total" type="button" class="btn btn-primary btn-lg" onclick="calculateTotal()">TOTAL</button></td>
+                </tr>
+            </table>
+        </div>
+        <div id="receipt" class="bg-dark"></div>
+        
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+                integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" 
+                crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" 
+                integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" 
+                crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" 
+                integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" 
+                crossorigin="anonymous"></script>
+  
+    </body>
+  
+</html>
