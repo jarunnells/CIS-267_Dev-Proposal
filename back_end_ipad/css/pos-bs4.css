@@ -53,7 +53,7 @@ body {
     /**
      * TESTING
      */
-     font-family: var(--font-caveat);
+    font-family: var(--font-caveat);
 }
 
 header > h1,h3 {
@@ -129,4 +129,11 @@ pre {
     /*font-variant: small-caps;*/
     margin: 50px auto;
     text-align: center;
+}
+
+/* ADD MEDIA QUERY FOR LARGER SCREENS */
+body {
+    width: 90%;
+    margin: auto;
+    min-width: 80%;
 }
