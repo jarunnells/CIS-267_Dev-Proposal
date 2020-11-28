@@ -3,43 +3,44 @@
 #          FILE:  database.py -> DBManager.py
 #        BRANCH: dev
 # ==========================================
-
+# TYPE CHECKING
+from typing import (Any, List, Iterator, Union)
 # STANDARD LIBRARY IMPORTS
-from sqlite3 import connect, Error, OperationalError
-import json
 import csv
-import sqlite3
+import json
 import logging
+import sqlite3 as sql3
+from sqlite3 import (connect, Error, OperationalError)
 # CUSTOM LIBRARY IMPORTS
-from modules.config import Query as q_
-from modules.config import TableNames as tn_
 from modules.config import Directories as d_
+from modules.config import TableNames as tn_
+from modules.config import Query as q_
 
 
-def _DEBUG_(choice, cursor=None, connection=None):
+def _DEBUG_(choice: str, cursor: sql3.Cursor = None, connection: sql3.Connection = None) -> None:
     if choice.upper() == "INIT":
         print(cursor.execute(q_.FETCH_ALL['tables']).fetchall())
 
 
 class Database:
-    def __init__(self, db):
+    def __init__(self, db: str) -> None:
         self.db = db
-        self.conn = sqlite3.connect(self.db)
-        self.cur = self.conn.cursor()
+        self.conn: sql3.Connection = sql3.connect(self.db)
+        self.cur: sql3.Cursor = self.conn.cursor()
         self.cur.executescript(q_.INIT)
 
         # DEBUG :=: REMOVE =========================
         _DEBUG_(choice="init", cursor=self.cur)
         # ==========================================
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"Database({self.db})"
 
-    def __str__(self):
+    def __str__(self) -> str:
         conn_status = "CONNECTED" if self.conn else "DISCONNECTED"
         return f"Database={self.db} :=: Connection={conn_status}"
 
-    def fetch_all_records(self):
+    def fetch_all_records(self) -> List[Union[str, str, str, str, float]]:
         """[summary]
 
         Returns:
@@ -49,7 +50,7 @@ class Database:
         rows = self.cur.fetchall()
         return rows
 
-    def insert_record(self, id_, category_, name_, label_, price_):
+    def insert_record(self, id_: str, category_: str, name_: str, label_: str, price_: float) -> None:
         """[summary]
 
         Args:
@@ -62,7 +63,7 @@ class Database:
         self.cur.execute(q_.INSERT, (id_, category_, name_, label_, price_))
         self.conn.commit()
 
-    def remove_record(self, id_):
+    def remove_record(self, id_: str) -> None:
         """[summary]
 
         Args:
@@ -71,7 +72,7 @@ class Database:
         self.cur.execute(q_.REMOVE, (id_,))
         self.conn.commit()
 
-    def update_record(self, id_, category_, name_, label_, price_):
+    def update_record(self, id_: str, category_: str, name_: str, label_: str, price_: float) -> None:
         """[summary]
 
         Args:
@@ -86,7 +87,7 @@ class Database:
         )
         self.conn.commit()
 
-    def search_record_id(self, id_):
+    def search_record_id(self, id_: str) -> List[Union[str, str, str, str, float]]:
         """[summary]
 
         Args:
@@ -100,7 +101,7 @@ class Database:
         return rows
 
     # TODO: finish implementation
-    def create_tables(self, tables):
+    def create_tables(self, tables: str) -> None:
         """[summary]
 
         Args:
@@ -117,7 +118,7 @@ class Database:
             print(f"Total changes: {self.conn.total_changes}")
 
     # TODO: finish implementation
-    def drop_table(self, table=None, tables=None, drop_all=False):
+    def drop_table(self, table_name: str = None, tables: Iterator[str] = None, drop_all: bool = False) -> None:
         """[summary]
 
         Args:
@@ -143,7 +144,7 @@ class Database:
                 print(f"Total changes: {self.conn.total_changes}")
 
     # TODO: finish implementation
-    def dump_db_sql(self, table_name, output_type='sql'):
+    def dump_db_sql(self, table_name: str, output_type: str = 'sql') -> None:
         """Dump database -> SQL
 
         Args:
@@ -166,7 +167,7 @@ class Database:
                 print(f"{out_file} created successfully using mode {mode}")
 
     # TODO: finish implementation
-    def dump_db_json(self, table_name=None, output_type='json'):
+    def dump_db_json(self, table_name: str = None, output_type: str = 'json') -> None:
         """Dump database -> JSON
 
         Args:
@@ -187,7 +188,7 @@ class Database:
                 # MATCH(ish): menuItems-NEW.json
                 # json.dump({"items": dict_result})
                 # json.dump({"items": dict_result}, indent=2)
-        except sqlite3.OperationalError as err:
+        except sql3.OperationalError as err:
             print(f"[ERROR] {err}")
         except Error as err:
             print(f"[ERROR] {err}")
@@ -196,7 +197,7 @@ class Database:
         #     print(json.dumps({"items": dict_result}, indent=2))
 
     # TODO: finish implementation
-    def dump_db_csv(self, table_name=None, output_type='csv'):
+    def dump_db_csv(self, table_name: str = None, output_type: str = 'csv') -> None:
         """Dump database -> CSV
 
         Args:
@@ -216,7 +217,7 @@ class Database:
                 result_csv.writerow(row=[desc[0] for desc in self.cur.description])
                 # DATA ROWS
                 result_csv.writerows(rows=result)
-        except sqlite3.OperationalError as err:
+        except sql3.OperationalError as err:
             print(f"[ERROR] {err}")
         except Error as err:
             print(f"[ERROR] {err}")
@@ -224,7 +225,7 @@ class Database:
             logging.exception('')
 
     # TODO: finish implementation
-    def dump_db(self, table_name, output_type):
+    def dump_db(self, table_name: str, output_type: str) -> None:
         """[summary]
 
         Args:
@@ -233,7 +234,7 @@ class Database:
         """
         try:
             result = self.cur.execute(q_.FETCH_ALL['records'])            
-        except sqlite3.OperationalError as err:
+        except sql3.OperationalError as err:
             print(f"[ERROR] {err}")
         except Error as err:
             print(f"[ERROR] {err}")
@@ -260,7 +261,7 @@ class Database:
             print("[ERROR] File type not supported! Try again! (Supported := sql, json, csv)")
 
     # TODO: future implementation
-    def connect_table(self, table_name):
+    def connect_table(self, table_name: str) -> None:
         """[summary]
 
         Args:
@@ -268,7 +269,7 @@ class Database:
         """
         pass
 
-    def __del__(self):
+    def __del__(self) -> None:
         if self.cur:
             self.cur.close()
             print("CURSOR CLOSED!")

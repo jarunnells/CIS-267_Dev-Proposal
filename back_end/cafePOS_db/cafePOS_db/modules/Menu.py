@@ -20,6 +20,7 @@ class Menu:
         return f"Menu({self.dbmgr}, data_file={self.data_file}, table_name={self.table_name}, record={self.record})"
 
     def __str__(self):
+        """"""
         pass
 
     @staticmethod

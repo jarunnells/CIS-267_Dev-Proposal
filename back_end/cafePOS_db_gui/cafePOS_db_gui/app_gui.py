@@ -60,9 +60,21 @@ class GUI(tk.Frame):
         self.style = ttk.Style()
         self.style.theme_use(st_.THEMES[2])
         self.style.configure(
-            "Label",
+            "TLabel",
             background = c_.MAIN_['hex'], 
             foreground = c_.WHITE_SMOKE['hex'],
+        )        
+        self.style.configure(
+            "TEntry",
+            padding = (5,),
+        )
+        self.style.configure(
+            "TCombobox",
+            padding = (5,),
+        )
+        self.style.configure(
+            "Search.TCombobox",
+            justify = tk.CENTER,
         )
         self.style.configure(
             "Treeview",
@@ -73,7 +85,12 @@ class GUI(tk.Frame):
         )
         self.style.map(
             "Treeview", 
-            background = [("selected", c_.FIRE_BRICK_65['hex'])])
+            background = [("selected", c_.FIRE_BRICK_65['hex'])]
+        )
+        self.style.map(
+            "TEntry",
+            highlightcolor = [("focus", "#CCE6FF"), ("!focus", "")],
+        )
 
     def create_frames(self):
         """Create GUI Frames"""
@@ -227,10 +244,6 @@ class GUI(tk.Frame):
             text = "CAFE POS DATABASE", 
             font = ("bold", 36),
             anchor = 'center',
-            # padx = 0,
-            # pady = 0,
-            background = c_.MAIN_['hex'], 
-            foreground = c_.WHITE_SMOKE['hex'],
         )
         self.header_label.pack(
             fill = tk.BOTH, 
@@ -244,10 +257,7 @@ class GUI(tk.Frame):
             master = _MASTER, 
             text = lf_.TXT[0].upper(),
             padding = lf_.padding,
-            background = c_.MAIN_['hex'], 
-            foreground = c_.WHITE_SMOKE['hex'],
             font = lf_.font,
-            # cnf = lf_.cnf
         )
         self.id_label.grid(
             row = 0, 
@@ -269,10 +279,7 @@ class GUI(tk.Frame):
             master = _MASTER, 
             text = lf_.TXT[1].upper(),
             padding = lf_.padding,
-            background = c_.MAIN_['hex'], 
-            foreground = c_.WHITE_SMOKE['hex'],
             font = lf_.font,
-            # cnf = lf_.cnf
         )
         self.category_label.grid(
             row = 1, 
@@ -295,10 +302,7 @@ class GUI(tk.Frame):
             master = _MASTER, 
             text = lf_.TXT[2].upper(),
             padding = lf_.padding,
-            background = c_.MAIN_['hex'], 
-            foreground = c_.WHITE_SMOKE['hex'],
             font = lf_.font,
-            # cnf = lf_.cnf
         )
         self.name_label.grid(
             row = 2, 
@@ -320,10 +324,7 @@ class GUI(tk.Frame):
             master = _MASTER, 
             text = lf_.TXT[3].upper(),
             padding = lf_.padding,
-            background = c_.MAIN_['hex'], 
-            foreground = c_.WHITE_SMOKE['hex'],
             font = lf_.font,
-            # cnf = lf_.cnf
         )
         self.pos_label_label.grid(
             row = 3, 
@@ -345,10 +346,7 @@ class GUI(tk.Frame):
             master = _MASTER, 
             text = lf_.TXT[4].upper(),
             padding = lf_.padding,
-            background = c_.MAIN_['hex'], 
-            foreground = c_.WHITE_SMOKE['hex'],
             font = lf_.font,
-            # cnf = lf_.cnf
         )
         self.price_label.grid(
             row = 4, 
@@ -373,11 +371,11 @@ class GUI(tk.Frame):
         )
 
         self.vsb = ttk.Scrollbar(
-            orient = "vertical", 
+            orient = tk.VERTICAL, 
             command = self.tree_view.yview,
         )
         self.hsb = ttk.Scrollbar(
-            orient = "horizontal", 
+            orient = tk.HORIZONTAL, 
             command = self.tree_view.xview,
         )
 
@@ -601,52 +599,67 @@ class GUI(tk.Frame):
         #     cnf = b_.cnf_grid,
         # )
         
-        # BUTTON 07
-        self.search_menubtn = ttk.Menubutton(
-            master = _MASTER, 
-            text = b_.BTN['07']['text'].upper(),
-            direction='above'
-            # command = lambda: print(f"{b_.BTN['07']['text'].upper()} Clicked!"), 
-            # cnf = b_.cnf,
-        )
-        self.search_menubtn.grid(
-            row = b_.BTN['07']['row'], 
-            column = b_.BTN['07']['column'], 
-            columnspan = b_.BTN['07']['columnspan'], 
-            cnf = b_.cnf_grid,
-        )
-        self.search_menubtn.menu = tk.Menu(self.search_menubtn)   
-        self.search_menubtn["menu"] = self.search_menubtn.menu
-        self.mb_option_id = tk.IntVar()
-        self.mb_option_category = tk.IntVar()
-        self.mb_option_name = tk.IntVar()
-        self.mb_option_label = tk.IntVar()
-        self.mb_option_price = tk.IntVar()
+        # # BUTTON 07
+        # self.search_menubtn = ttk.Menubutton(
+        #     master = _MASTER, 
+        #     text = b_.BTN['07']['text'].upper(),
+        #     direction='above'
+        #     # command = lambda: print(f"{b_.BTN['07']['text'].upper()} Clicked!"), 
+        #     # cnf = b_.cnf,
+        # )
+        # self.search_menubtn.grid(
+        #     row = b_.BTN['07']['row'], 
+        #     column = b_.BTN['07']['column'], 
+        #     columnspan = b_.BTN['07']['columnspan'], 
+        #     cnf = b_.cnf_grid,
+        # )
+        # self.search_menubtn.menu = tk.Menu(self.search_menubtn)   
+        # self.search_menubtn["menu"] = self.search_menubtn.menu
+        # self.mb_option_id = tk.IntVar()
+        # self.mb_option_category = tk.IntVar()
+        # self.mb_option_name = tk.IntVar()
+        # self.mb_option_label = tk.IntVar()
+        # self.mb_option_price = tk.IntVar()
         
-        # self.search_menubtn.menu.add_checkbutton(
-        self.search_menubtn.menu.add_radiobutton(
-            label = "Item ID",
-            variable = self.mb_option_id
-        )
-        # self.search_menubtn.menu.add_checkbutton(
-        self.search_menubtn.menu.add_radiobutton(
-            label = "Category",
-            variable = self.mb_option_category
-        )
-        # self.search_menubtn.menu.add_checkbutton(
-        self.search_menubtn.menu.add_radiobutton(
-            label = "Name",
-            variable = self.mb_option_name
-        )
-        # self.search_menubtn.menu.add_checkbutton(
-        self.search_menubtn.menu.add_radiobutton(
-            label = "Label",
-            variable = self.mb_option_label
-        )
-        # self.search_menubtn.menu.add_checkbutton(
-        self.search_menubtn.menu.add_radiobutton(
-            label = "Price",
-            variable = self.mb_option_price
+        # # self.search_menubtn.menu.add_checkbutton(
+        # self.search_menubtn.menu.add_radiobutton(
+        #     label = "Item ID",
+        #     variable = self.mb_option_id
+        # )
+        # # self.search_menubtn.menu.add_checkbutton(
+        # self.search_menubtn.menu.add_radiobutton(
+        #     label = "Category",
+        #     variable = self.mb_option_category
+        # )
+        # # self.search_menubtn.menu.add_checkbutton(
+        # self.search_menubtn.menu.add_radiobutton(
+        #     label = "Name",
+        #     variable = self.mb_option_name
+        # )
+        # # self.search_menubtn.menu.add_checkbutton(
+        # self.search_menubtn.menu.add_radiobutton(
+        #     label = "Label",
+        #     variable = self.mb_option_label
+        # )
+        # # self.search_menubtn.menu.add_checkbutton(
+        # self.search_menubtn.menu.add_radiobutton(
+        #     label = "Price",
+        #     variable = self.mb_option_price
+        # )
+        
+        # SEARCH COMBOBOX (BUTTON 07)
+        self.search_combo = ttk.Combobox(
+            master = _MASTER, 
+            # textvariable = None,
+            values = cb_.search_values,
+            width = cb_.width,
+            style = "Search.TCombobox",
+        )        
+        self.search_combo.set(cb_.search_values[0])
+        self.search_combo.grid(
+            row = 3, 
+            column = 2,
+            columnspan = 2,
         )
         
         # BUTTON 08
@@ -731,7 +744,8 @@ class GUI(tk.Frame):
             "pos_label_": self.pos_label_text.get().upper(),
             "price_": float(self.price_text.get()) if self.price_text.get() != '' else self.price_text.get(),
         }
-        if self.validate_conditions(action='add'): return
+        if self.validate_conditions(action='add'): 
+            return
         # DEBUG ==========================
         print(self.id_text.get().upper())
         # ================================
@@ -796,7 +810,8 @@ class GUI(tk.Frame):
 
     def update_item(self):
         """Update item (record)"""
-        if self.validate_conditions(action='update'): return
+        if self.validate_conditions(action='update'): 
+            return
         else:
             if messagebox.askyesno(
                 title = m_.UPDATE['title'], 
@@ -820,11 +835,13 @@ class GUI(tk.Frame):
         self.price_entry.delete(0, tk.END)
 
     def search_item(self):
+        """Search Item"""
         pass
 
     def search_item_id(self):
         """Search by item ID"""
-        if not self.id_entry.get(): print("ID BLANK -> ADD Prompt!")
+        if not self.id_entry.get(): 
+            print("ID BLANK -> ADD Prompt!")
         else:
             self.tree_view.delete(*self.tree_view.get_children())
             for row in db.search_record_id(self.id_entry.get().upper()):
@@ -858,4 +875,5 @@ def main():
     gui.mainloop()
 
 
-if __name__ == '__main__': main()
+if __name__ == '__main__': 
+    main()

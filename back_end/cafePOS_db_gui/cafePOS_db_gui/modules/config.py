@@ -9,38 +9,41 @@
 #     import tkinter as tk
 #
 # ==========================================
+# TYPE CHECKING
+from typing import (Dict, List, Iterator, Tuple, Any)
+# STANDARD LIBRARY IMPORTS
 import tkinter as tk
 from tkinter import ttk as ttk
 
-FIELD_NAMES = ["Item ID", "Category", "Name", "Label", "Price"]
+FIELD_NAMES: List[str] = ["Item ID", "Category", "Name", "Label", "Price"]
 
 # GUI CONFIG SETTINGS
 # TODO: rename 
 class Directories:
-    DATABASE = "cafePOS"
-    TIMESTAMP = "TEST"
-    FILENAME = f"dump_{DATABASE}_db-{TIMESTAMP}"
-    PROJ_ROOT = "back_end/cafePOS_db_gui/cafePOS_db_gui/"
-    MODE = ("w", "wb", "r", "rb")
-    PREFIX = ("/backup/", "/data/")
-    DB_ = {
+    DATABASE: str = "cafePOS"
+    TIMESTAMP: str = "TEST"
+    FILENAME: str = f"dump_{DATABASE}_db-{TIMESTAMP}"
+    PROJ_ROOT: str = "back_end/cafePOS_db_gui/cafePOS_db_gui/"
+    MODE: Tuple[str, ...] = ("w", "wb", "r", "rb")
+    PREFIX: Tuple[str, ...] = ("/backup/", "/data/")
+    DB_: Dict[str, str] = {
         "prefix": PREFIX[1], 
         "filename": DATABASE, 
         "ext": ".db",
     }
-    SQL_ = {
+    SQL_: Dict[str, str] = {
         "prefix": PREFIX[0], 
         "filename": FILENAME, 
         "ext": ".sql", 
         "mode": MODE[0],
     }
-    JSON_ = {
+    JSON_: Dict[str, str] = {
         "prefix": PREFIX[1], 
         "filename": FILENAME, 
         "ext": ".json", 
         "mode": MODE[0],
     }
-    CSV_ = {
+    CSV_: Dict[str, str] = {
         "prefix": PREFIX[1], 
         "filename": FILENAME, 
         "ext": ".csv", 
@@ -49,21 +52,21 @@ class Directories:
 
 
 class TableNames:
-    CAFE_ITEMS = "items"
-    ACTIVE_TABLE = CAFE_ITEMS
+    CAFE_ITEMS: str = "items"
+    ACTIVE_TABLE: str = CAFE_ITEMS
 
 
 # TODO: integrate Messages into per Query as dictionary 
 class Messages:
-    UPDATE = {
+    UPDATE: Dict[str, str] = {
         "title": "CONFIRM UPDATE OPERATION!", 
         "message": f"Please confirm update operation on item:"
         }
-    DELETE = {
+    DELETE: Dict[str, str] = {
         "title": "CONFIRM DELETE OPERATION!", 
         "message": f"Please confirm delete operation on item:"
         }
-    ERRORS = {
+    ERRORS: Dict[str, str] = {
         "add_item": {
             "title": "ADD Item Error", 
             "message": "ALL fields required!"
@@ -80,77 +83,77 @@ class Messages:
 
 
 class Query:
-    INIT = f"BEGIN TRANSACTION; CREATE TABLE IF NOT EXISTS {TableNames.ACTIVE_TABLE} \
+    INIT: str = f"BEGIN TRANSACTION; CREATE TABLE IF NOT EXISTS {TableNames.ACTIVE_TABLE} \
         (id TEXT PRIMARY KEY, category TEXT NOT NULL, name TEXT NOT NULL, label TEXT NOT NULL, price REAL NOT NULL); COMMIT;"
-    FETCH_ALL = {
+    FETCH_ALL: Dict[str, str] = {
         'tables': "SELECT name FROM sqlite_master WHERE type='table'",
         'records': f"SELECT * FROM {TableNames.ACTIVE_TABLE}"
     }
-    INSERT = f"INSERT INTO {TableNames.ACTIVE_TABLE} VALUES (?, ?, ?, ?, ?)"
-    REMOVE = f"DELETE FROM {TableNames.ACTIVE_TABLE} WHERE id=?"
-    SEARCH = {
+    INSERT: str = f"INSERT INTO {TableNames.ACTIVE_TABLE} VALUES (?, ?, ?, ?, ?)"
+    REMOVE: str = f"DELETE FROM {TableNames.ACTIVE_TABLE} WHERE id=?"
+    SEARCH: Dict[str, str] = {
         "id_": f"SELECT * FROM {TableNames.ACTIVE_TABLE} WHERE id=?",
         "category_": f"SELECT * FROM {TableNames.ACTIVE_TABLE} WHERE category=?",
         "name_": f"SELECT * FROM {TableNames.ACTIVE_TABLE} WHERE name=?",
         "label_": f"SELECT * FROM {TableNames.ACTIVE_TABLE} WHERE label=?",
         "price_": f"SELECT * FROM {TableNames.ACTIVE_TABLE} WHERE price IN (?)",
     }
-    UPDATE = f"UPDATE {TableNames.ACTIVE_TABLE} SET id=?, category=?, name=?, label=?, price=? WHERE id=?"
-    DROP = f"DROP TABLE IF EXISTS {TableNames.ACTIVE_TABLE}"
+    UPDATE: str = f"UPDATE {TableNames.ACTIVE_TABLE} SET id=?, category=?, name=?, label=?, price=? WHERE id=?"
+    DROP: str = f"DROP TABLE IF EXISTS {TableNames.ACTIVE_TABLE}"
 
 
 class Colors:
-    LIGHT_STEEL_BLUE = {
+    LIGHT_STEEL_BLUE: Dict[str, object] = {
         "py_name": "light steel blue", 
         "hex": "#B0C4DE", 
         "rgb": (176, 196, 222),
     }
-    LIGHT_CORAL = {
+    LIGHT_CORAL: Dict[str, object] = {
         "py_name": "light coral", 
         "hex": "#F08080", 
         "rgb": (240, 128, 128),
     }
-    LAVENDER = {
+    LAVENDER: Dict[str, object] = {
         "py_name": "lavender", 
         "hex": "#E6E6FA", 
         "rgb": (230, 230, 250),
     }
-    ANTIQUE_WHITE = {
+    ANTIQUE_WHITE: Dict[str, object] = {
         "py_name": "antique white", 
         "hex": "#FAEBD7", 
         "rgb": (250, 235, 215),
     }
-    DARK_SEA_GREEN = {
-        "py_name": None, 
+    DARK_SEA_GREEN: Dict[str, object] = {
+        "py_name": "dark sea green", 
         "hex": "#8FBC8F", 
         "rgb": (143, 188, 143),
     }
     STEEL_BLUE = MAIN_ = {
-        "py_name": None, 
+        "py_name": "steel blue", 
         "hex": "#4682B4", 
         "rgb": (70, 130, 180),
     }
-    FIRE_BRICK = {
-        "py_name": None, 
+    FIRE_BRICK: Dict[str, object] = {
+        "py_name": "'firebrick'", 
         "hex": "#B22222", 
         "rgb": (178, 34, 34),
     }
-    FIRE_BRICK_65 = {
+    FIRE_BRICK_65: Dict[str, object] = {
         "py_name": None, 
         "hex": "#E26969", 
         "rgb": (226, 105, 105),
     }
-    WHITE_SMOKE = {
-        "py_name": None, 
+    WHITE_SMOKE: Dict[str, object] = {
+        "py_name": "white smoke", 
         "hex": "#F5F5F5", 
         "rgb": (245, 245, 245),
     }
-    GAINSBORO = {
-        "py_name": None, 
+    GAINSBORO: Dict[str, object] = {
+        "py_name": "gainsboro", 
         "hex": "#DCDCDC", 
         "rgb": (220, 220, 220),
     }
-    DARK_RED = {
+    DARK_RED: Dict[str, object] = {
         "py_name": None, 
         "hex": "#8B0000", 
         "rgb": (139, 0, 0),
@@ -158,7 +161,7 @@ class Colors:
 
 
 class StylesTtk:
-    THEMES = ("default", "classic", "clam", "aqua", "alt")
+    THEMES: Tuple[str, ...] = ("default", "classic", "clam", "aqua", "alt")
 
 
 class FrameWidget:
@@ -168,11 +171,11 @@ class FrameWidget:
     bg = None
     borderwidth = None
     background = None
-    pady = {"pack": 5, "frame": 10}
-    padx = {"pack": 5, "frame": 10}
-    side = {"L": tk.LEFT, "R": tk.RIGHT, "T": tk.TOP, "B": tk.BOTTOM}
-    fill = tk.BOTH
-    expand = tk.YES
+    pady: Dict[str, int] = {"pack": 5, "frame": 10}
+    padx: Dict[str, int] = {"pack": 5, "frame": 10}
+    side: Dict[str, int] = {"L": tk.LEFT, "R": tk.RIGHT, "T": tk.TOP, "B": tk.BOTTOM}
+    fill: str = tk.BOTH
+    expand: str = tk.YES
     cnf = {}
     cnf_pack = {}
     # ===== UNUSED ======
@@ -204,11 +207,11 @@ class MenuWidget():
 
 
 class ButtonWidget:
-    padx = 5
-    pady = 5
-    width = 12
-    padding = (padx, pady)
-    BTN = {
+    padx: int = 5
+    pady: int = 5
+    width: int = 12
+    padding: Tuple[int, ...] = (padx, pady)
+    BTN: Dict[str, object] = {
         "01": {
             "text": "Add Item", 
             "row": 0, 
@@ -294,8 +297,9 @@ class ComboboxWidget():
     postcommand = None
     state = None
     textvariable = None
-    values = ["", "bkfast", "bev_hot", "bev_cold", "deli", "snack", "condiment",]
-    width = 18
+    values: Iterator[str] = ["", "bkfast", "bev_hot", "bev_cold", "deli", "snack", "condiment",]
+    search_values: Iterator[str] = ["Search by ...", "item ID", "category", "name", "label", "price"]
+    width: int = 18
     # ===== UNUSED ======
     
     # ===================
@@ -306,18 +310,18 @@ class ProgressBarWidget():
 
 
 class EntryWidget:
-    column = 1
-    width = 20
-    padx = 5
-    pady = 5
-    placeholder = {
+    column: int = 1
+    width: int = 20
+    padx: int = 5
+    pady: int = 5
+    placeholder: Dict[str, str] = {
         "id_": "Item ID...",
         "category_": "Item Category...",
         "name_": "Item Name...",
         "label_": "Item Label...",
         "price_": "Item Price...",
     }
-    cnf_grid = {
+    cnf_grid: Dict[str, int] = {
         "column": column,
         "padx": padx,
         "pady": pady
@@ -337,18 +341,18 @@ class EntryWidget:
 
 
 class TreeViewWidget:
-    bind_seq = '<<TreeviewSelect>>'
-    columns = {
+    bind_seq: str = '<<TreeviewSelect>>'
+    columns: Dict[str, Any] = {
         "str": FIELD_NAMES,
         "int": (1,2,3,4,5)
     }
-    selectmode = {
+    selectmode: Dict[str, str] = {
         "one": "browse", 
         "many": "extended", 
         "none": "none"
     }
-    show = "headings"
-    HEADINGS = columns['str']
+    show: str = "headings"
+    HEADINGS: List[str] = columns['str']
     # ===== UNUSED ======
     # displaycolumns = None
     # height = None
@@ -357,22 +361,22 @@ class TreeViewWidget:
 
 
 class ListBox:
-    bind_seq = '<<ListboxSelect>>'
-    height = 15
-    width = 45
-    border = 0
-    row = 7
-    column = 0
-    columnspan = 3
-    rowspan = 6
-    pady = 20
-    padx = 20
-    cnf = {
+    bind_seq: str = '<<ListboxSelect>>'
+    height: int = 15
+    width: int = 45
+    border: int = 0
+    row: int = 7
+    column: int = 0
+    columnspan: int = 3
+    rowspan: int = 6
+    pady: int = 20
+    padx: int = 20
+    cnf: Dict[str, int] = {
         "height": height,
         "width": width,
         "border": border
     }
-    cnf_grid = {
+    cnf_grid: Dict[str, int] = {
         "row": row,
         "column": column,
         "columnspan": columnspan,
@@ -415,13 +419,13 @@ class ScrollbarWidget:
 
 
 class LabelField:        
-    font = ("bold", 16)
-    padx = 2
-    pady = 2
-    padding = (pad_h := padx, pad_v := pady)
-    column = 0
-    sticky = tk.E
-    TXT = FIELD_NAMES + ["Search (ID)",]
+    font: Tuple[str, int] = ("bold", 16)
+    padx: int = 2
+    pady: int = 2
+    padding: Tuple[int, ...] = (pad_h := padx, pad_v := pady)
+    column: int = 0
+    sticky: str = tk.E
+    TXT: List[str] = FIELD_NAMES + ["Search (ID)",]
     cnf = {
         "font": font,
         "padx": padx,

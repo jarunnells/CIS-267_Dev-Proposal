@@ -37,6 +37,9 @@ class Default():
 # TODO: complete implementation -- under development -> NOT TESTED
 @staticmethod
 def clear(os_name=None):
-    if os_name == 'os': _ = system('cls' if name == 'nt' else 'clear')
-    elif os_name == 'sub': _ = call('cls' if name == 'nt' else 'clear', shell=True)
-    else: print('\n' * 25)
+    if os_name == 'os': 
+        _ = system('cls' if name == 'nt' else 'clear')
+    elif os_name == 'sub': 
+        _ = call('cls' if name == 'nt' else 'clear', shell=True)
+    else: 
+        print('\n' * 25)
