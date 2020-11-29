@@ -107,60 +107,49 @@ class Query:
 
 
 class Colors:
-    LIGHT_STEEL_BLUE: Dict[str, Dict[str, Any]] = {
+    LIGHT_STEEL_BLUE: Dict[str, str] = {
         "py_name": "light steel blue", 
-        "hex": "#B0C4DE", 
-        "rgb": (176, 196, 222),
+        "hex": "#B0C4DE",
     }
-    LIGHT_CORAL: Dict[str, Dict[str, Any]] = {
+    LIGHT_CORAL: Dict[str, str] = {
         "py_name": "light coral", 
-        "hex": "#F08080", 
-        "rgb": (240, 128, 128),
+        "hex": "#F08080",
     }
-    LAVENDER: Dict[str, Dict[str, Any]] = {
+    LAVENDER: Dict[str, str] = {
         "py_name": "lavender", 
-        "hex": "#E6E6FA", 
-        "rgb": (230, 230, 250),
+        "hex": "#E6E6FA",
     }
-    ANTIQUE_WHITE: Dict[str, Dict[str, Any]] = {
+    ANTIQUE_WHITE: Dict[str, str] = {
         "py_name": "antique white", 
-        "hex": "#FAEBD7", 
-        "rgb": (250, 235, 215),
+        "hex": "#FAEBD7",
     }
-    DARK_SEA_GREEN: Dict[str, Dict[str, Any]] = {
+    DARK_SEA_GREEN: Dict[str, str] = {
         "py_name": "dark sea green", 
-        "hex": "#8FBC8F", 
-        "rgb": (143, 188, 143),
+        "hex": "#8FBC8F",
     }
     STEEL_BLUE = MAIN_ = {
         "py_name": "steel blue", 
-        "hex": "#4682B4", 
-        "rgb": (70, 130, 180),
+        "hex": "#4682B4",
     }
-    FIRE_BRICK: Dict[str, Dict[str, Any]] = {
+    FIRE_BRICK: Dict[str, str] = {
         "py_name": "'firebrick'", 
-        "hex": "#B22222", 
-        "rgb": (178, 34, 34),
+        "hex": "#B22222",
     }
-    FIRE_BRICK_65: Dict[str, Dict[str, Any]] = {
-        "py_name": None, 
-        "hex": "#E26969", 
-        "rgb": (226, 105, 105),
+    FIRE_BRICK_65: Dict[str, str] = {
+        "py_name": "", 
+        "hex": "#E26969",
     }
-    WHITE_SMOKE: Dict[str, Dict[str, Any]] = {
+    WHITE_SMOKE: Dict[str, str] = {
         "py_name": "white smoke", 
-        "hex": "#F5F5F5", 
-        "rgb": (245, 245, 245),
+        "hex": "#F5F5F5",
     }
-    GAINSBORO: Dict[str, Dict[str, Any]] = {
+    GAINSBORO: Dict[str, str] = {
         "py_name": "gainsboro", 
-        "hex": "#DCDCDC", 
-        "rgb": (220, 220, 220),
+        "hex": "#DCDCDC",
     }
-    DARK_RED: Dict[str, Dict[str, Any]] = {
-        "py_name": None, 
-        "hex": "#8B0000", 
-        "rgb": (139, 0, 0),
+    DARK_RED: Dict[str, str] = {
+        "py_name": "", 
+        "hex": "#8B0000",
     }
 
 
@@ -263,12 +252,12 @@ class ButtonWidget:
             "column": 3
         }
     }
-    cnf = {
+    cnf: Dict[str, int] = {
         "width": width,
         "padx": padx,
         "pady": pady
     }
-    cnf_grid = {
+    cnf_grid: Dict[str, int] = {
         "padx": padx,
         "pady": pady
     }
@@ -410,7 +399,7 @@ class ScrollbarWidget:
     column = 3
     sticky = tk.W
     cnf = {}
-    cnf_grid = {
+    cnf_grid: Dict[str, int] = {
         "row": row, 
         "column": column, 
         "sticky": sticky
@@ -430,11 +419,11 @@ class LabelField:
     column: int = 0
     sticky: str = tk.E
     TXT: List[str] = FIELD_NAMES + ["Search (ID)",]
-    cnf = {
+    cnf: Dict[str, int] = {
         "font": font,
         "padx": padx,
         "pady": pady}
-    cnf_grid = {
+    cnf_grid: Dict[str, int] = {
         "column": column,
         "sticky": sticky
     }
