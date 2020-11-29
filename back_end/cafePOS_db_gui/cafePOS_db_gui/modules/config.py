@@ -9,17 +9,21 @@
 #     import tkinter as tk
 #
 # ==========================================
-# TYPE CHECKING
-from typing import (Dict, List, Iterator, Tuple, Any)
 # STANDARD LIBRARY IMPORTS
 import tkinter as tk
-from tkinter import ttk as ttk
+from tkinter import ttk
+from typing import (Dict, List, Iterator, Tuple, Any)
+
 
 FIELD_NAMES: List[str] = ["Item ID", "Category", "Name", "Label", "Price"]
 
 # GUI CONFIG SETTINGS
 # TODO: rename 
 class Directories:
+    """ [summary]
+
+    [extended_summary]
+    """
     DATABASE: str = "cafePOS"
     TIMESTAMP: str = "TEST"
     FILENAME: str = f"dump_{DATABASE}_db-{TIMESTAMP}"
@@ -103,27 +107,27 @@ class Query:
 
 
 class Colors:
-    LIGHT_STEEL_BLUE: Dict[str, object] = {
+    LIGHT_STEEL_BLUE: Dict[str, Dict[str, Any]] = {
         "py_name": "light steel blue", 
         "hex": "#B0C4DE", 
         "rgb": (176, 196, 222),
     }
-    LIGHT_CORAL: Dict[str, object] = {
+    LIGHT_CORAL: Dict[str, Dict[str, Any]] = {
         "py_name": "light coral", 
         "hex": "#F08080", 
         "rgb": (240, 128, 128),
     }
-    LAVENDER: Dict[str, object] = {
+    LAVENDER: Dict[str, Dict[str, Any]] = {
         "py_name": "lavender", 
         "hex": "#E6E6FA", 
         "rgb": (230, 230, 250),
     }
-    ANTIQUE_WHITE: Dict[str, object] = {
+    ANTIQUE_WHITE: Dict[str, Dict[str, Any]] = {
         "py_name": "antique white", 
         "hex": "#FAEBD7", 
         "rgb": (250, 235, 215),
     }
-    DARK_SEA_GREEN: Dict[str, object] = {
+    DARK_SEA_GREEN: Dict[str, Dict[str, Any]] = {
         "py_name": "dark sea green", 
         "hex": "#8FBC8F", 
         "rgb": (143, 188, 143),
@@ -133,27 +137,27 @@ class Colors:
         "hex": "#4682B4", 
         "rgb": (70, 130, 180),
     }
-    FIRE_BRICK: Dict[str, object] = {
+    FIRE_BRICK: Dict[str, Dict[str, Any]] = {
         "py_name": "'firebrick'", 
         "hex": "#B22222", 
         "rgb": (178, 34, 34),
     }
-    FIRE_BRICK_65: Dict[str, object] = {
+    FIRE_BRICK_65: Dict[str, Dict[str, Any]] = {
         "py_name": None, 
         "hex": "#E26969", 
         "rgb": (226, 105, 105),
     }
-    WHITE_SMOKE: Dict[str, object] = {
+    WHITE_SMOKE: Dict[str, Dict[str, Any]] = {
         "py_name": "white smoke", 
         "hex": "#F5F5F5", 
         "rgb": (245, 245, 245),
     }
-    GAINSBORO: Dict[str, object] = {
+    GAINSBORO: Dict[str, Dict[str, Any]] = {
         "py_name": "gainsboro", 
         "hex": "#DCDCDC", 
         "rgb": (220, 220, 220),
     }
-    DARK_RED: Dict[str, object] = {
+    DARK_RED: Dict[str, Dict[str, Any]] = {
         "py_name": None, 
         "hex": "#8B0000", 
         "rgb": (139, 0, 0),
@@ -211,7 +215,7 @@ class ButtonWidget:
     pady: int = 5
     width: int = 12
     padding: Tuple[int, ...] = (padx, pady)
-    BTN: Dict[str, object] = {
+    BTN: Dict[str, Dict[str, Any]] = {
         "01": {
             "text": "Add Item", 
             "row": 0, 
@@ -342,9 +346,9 @@ class EntryWidget:
 
 class TreeViewWidget:
     bind_seq: str = '<<TreeviewSelect>>'
-    columns: Dict[str, Any] = {
+    columns: Dict[str, List[Any]] = {
         "str": FIELD_NAMES,
-        "int": (1,2,3,4,5)
+        "int": [1,2,3,4,5]
     }
     selectmode: Dict[str, str] = {
         "one": "browse", 

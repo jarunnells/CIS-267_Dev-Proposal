@@ -4,41 +4,34 @@
 #          FILE:  app_gui.py
 #        BRANCH: dev
 # ==========================================
+
 # STANDARD LIBRARY IMPORTS
 import tkinter as tk
 import tkinter.font as tk_font
-from tkinter import ttk as ttk
-from tkinter import messagebox
+from tkinter import (ttk, messagebox)
 
+# THIRD PARTY IMPORTS
 
-# CUSTOM LIBRARY IMPORTS
-# from modules.DBManager import DBManager
+# LOCAL IMPORTS
+from modules.config import (
+    Directories as d_, Messages as m_, Colors as c_,
+    FrameWidget as f_, TreeViewWidget as tv_,
+    ButtonWidget as b_, EntryWidget as e_,
+    ComboboxWidget as cb_, LabelField as lf_, StylesTtk as st_,
+)
 from modules.database import Database
-from modules.config import Directories as d_
-from modules.config import TableNames as tn_
-from modules.config import Messages as m_
-from modules.config import Query as q_
-from modules.config import Colors as c_
-from modules.config import FrameWidget as f_
-from modules.config import TreeViewWidget as tv_
-from modules.config import ButtonWidget as b_
-from modules.config import EntryWidget as e_
-from modules.config import ComboboxWidget as cb_
-from modules.config import ScrollbarWidget as sb_
-from modules.config import LabelField as lf_
-from modules.config import VarString as vs_
-from modules.config import StylesTtk as st_
 
 
-db = Database(f"{d_.PROJ_ROOT}{d_.DB_['prefix']}{d_.DB_['filename']}{d_.DB_['ext']}")
 # db = Database(":memory:")
+db = Database(f"{d_.PROJ_ROOT}{d_.DB_['prefix']}{d_.DB_['filename']}{d_.DB_['ext']}")
 
 
 # TODO: FINISH IMPLEMENTATION -> config.py
 class GUI(tk.Frame):
 
     def __init__(self, master):
-        super(GUI, self).__init__(master)
+        # super(GUI, self).__init__(master)
+        super().__init__(master)
         self.master = master        
         master.title("Cafe POS Database Management")
         master.geometry("650x625+50+50")
@@ -47,6 +40,10 @@ class GUI(tk.Frame):
         self.initialize_UI()
     
     def initialize_UI(self):
+        """initialize_UI [summary]
+
+        [extended_summary]
+        """
         self.selected_item_values = 0
         self.create_frames()
         self.create_menubar()
@@ -57,6 +54,10 @@ class GUI(tk.Frame):
         self.populate_tree()
 
     def create_styles(self):
+        """create_styles [summary]
+
+        [extended_summary]
+        """
         self.style = ttk.Style()
         self.style.theme_use(st_.THEMES[2])
         self.style.configure(
@@ -93,11 +94,15 @@ class GUI(tk.Frame):
         )
 
     def create_frames(self):
-        """Create GUI Frames"""
+        """create_frames >> Create GUI Frames
+
+        [extended_summary]
+        """
         # INSTANTIATE FRAMES
-        # self.frame_header = ttk.Frame(master = self.master)        
-        # self.frame_top = ttk.Frame(master = self.master)        
-        # self.frame_bottom = ttk.Frame(master = self.master)        
+        # self.frame_header = ttk.Frame(master=self.master)
+        # self.frame_top = ttk.Frame(master=self.master)
+        # self.frame_bottom = ttk.Frame(master=self.master)
+        FRAMES = {}
         self.frame_header = tk.Frame(
             master = self.master, 
             padx = f_.padx['frame'], 
@@ -114,6 +119,12 @@ class GUI(tk.Frame):
             pady = f_.pady['frame'], 
             background = c_.MAIN_['hex']
         )
+
+        FRAMES = {
+            self.frame_header: {"side": tk.TOP}, 
+            self.frame_top: {"side": tk.TOP}, 
+            self.frame_bottom: {"": tk.BOTTOM}
+        }
 
         # RENDER/PACK FRAMES
         self.frame_header.pack(
@@ -136,6 +147,10 @@ class GUI(tk.Frame):
         )
 
     def create_menubar(self):
+        """create_menubar [summary]
+
+        [extended_summary]
+        """
         self.menubar = tk.Menu(master=self.master)
         self.master.config(menu=self.menubar)
         self.file_ = tk.Menu(self.menubar)
@@ -235,7 +250,10 @@ class GUI(tk.Frame):
         self.file_.entryconfig('Exit', accelerator='Ctrl+E')
 
     def create_labels_entries_combo(self):
-        """Create GUI Labels, Text Entry, and Combobox Widgets"""
+        """create_labels_entries_combo >> Create GUI Labels, Text Entry, and Combobox Widgets
+
+        [extended_summary]
+        """
         _MASTER = self.frame_bottom
 
         # HEADER WIDGET
@@ -363,7 +381,10 @@ class GUI(tk.Frame):
         )
 
     def create_treeview(self):
-        """Create TreeView GUI widget"""
+        """create_treeview >> Create TreeView GUI widget
+
+        [extended_summary]
+        """
         self.tree_view = ttk.Treeview(
             master = self.frame_top, 
             show = tv_.show, 
@@ -518,7 +539,10 @@ class GUI(tk.Frame):
         #     self.tree_view.insert(parent = "", index = tk.END, iid = i, text = "", values = item)
 
     def create_buttons(self):
-        """Add button widgets to frame(s) -> ADD, REMOVE, UPDATE, CLEAR, SEARCH, ..."""
+        """create_buttons >> Add button widgets to frame(s) -> ADD, REMOVE, UPDATE, CLEAR, SEARCH, ...
+
+        [extended_summary]
+        """
         _MASTER = self.frame_bottom
 
         # BUTTON 01
@@ -689,7 +713,10 @@ class GUI(tk.Frame):
         )
 
     def populate_tree(self):
-        """Populate Treview with data"""
+        """populate_tree >> Populate Treview with data
+
+        [extended_summary]
+        """
         self.clear_entry_fields()
         self.tree_view.delete(*self.tree_view.get_children())
         for i, row in enumerate(db.fetch_all_records()):
@@ -698,14 +725,15 @@ class GUI(tk.Frame):
             else:
                 self.tree_view.insert("", "end", values=row, tags=('row_odd',))
 
-    def validate_conditions(self, action):
-        """Validate User Input Fields
+    def validate_conditions(self, action: str):
+        """validate_conditions >> Validate User Input Fields
 
-        Args:
-            action ([type]): [description]
+        [extended_summary]
 
-        Returns:
-            [type]: [description]
+        :param action: [description]
+        :type action: str
+        :return: [description]
+        :rtype: [type]
         """
         item = {
             "id_": self.id_text.get().upper(),
@@ -736,7 +764,10 @@ class GUI(tk.Frame):
         return False
 
     def add_item(self):
-        """Add item (record) into database and ListBox widget"""
+        """add_item >> Add item (record) into database and ListBox widget
+
+        [extended_summary]
+        """
         new_item = {
             "id_": self.id_text.get().upper(),
             "category_": self.category_text.get().lower(),
@@ -759,10 +790,12 @@ class GUI(tk.Frame):
         self.populate_tree()
 
     def select_item(self, _):
-        """Insert selected item (record) into respective text fields
+        """select_item >> Insert selected item (record) into respective text fields [_ : event]
 
-        Args:
-            event ([type]): [description]
+        [extended_summary]
+
+        :param _: [description]
+        :type _: [type]
         """
         # global self.selected_item_values
         try:
@@ -788,7 +821,10 @@ class GUI(tk.Frame):
 
     # TODO: rename -> remove_item_single
     def remove_item(self):
-        """Remove item (record)"""
+        """remove_item >> Remove item (record)
+
+        [extended_summary]
+        """
         if messagebox.askyesno(
             title = m_.DELETE['title'], 
             message = f"{m_.DELETE['message']} {self.selected_item_values[0]}"
@@ -798,7 +834,10 @@ class GUI(tk.Frame):
 
     # TODO: finish implementation
     def remove_item_many(self):
-        """Remove Multiple Selected Items"""
+        """remove_item_many >> Remove Multiple Selected Items
+
+        [extended_summary]
+        """
         records_selected = self.tree_view.selection()
         if messagebox.askyesno(
             title = m_.DELETE['title'], 
@@ -809,7 +848,10 @@ class GUI(tk.Frame):
             self.populate_tree()
 
     def update_item(self):
-        """Update item (record)"""
+        """update_item >> Update item (record)
+
+        [extended_summary]
+        """
         if self.validate_conditions(action='update'): 
             return
         else:
@@ -827,7 +869,10 @@ class GUI(tk.Frame):
                 self.populate_tree()
 
     def clear_entry_fields(self):
-        """Clear text fields"""
+        """clear_entry_fields >> Clear text fields
+
+        [extended_summary]
+        """
         self.id_entry.delete(0, tk.END)
         self.category_combo.delete(0, tk.END)
         self.name_entry.delete(0, tk.END)
@@ -839,7 +884,10 @@ class GUI(tk.Frame):
         pass
 
     def search_item_id(self):
-        """Search by item ID"""
+        """search_item_id >> Search by item ID
+
+        [extended_summary]
+        """
         if not self.id_entry.get(): 
             print("ID BLANK -> ADD Prompt!")
         else:
@@ -847,25 +895,29 @@ class GUI(tk.Frame):
             for row in db.search_record_id(self.id_entry.get().upper()):
                 self.tree_view.insert("", "end", values = row)
 
-    def sortby(self, tree_view, column, descending):
-        """Sort Treeview on click event
+    def sortby(self, tree_view: object, column: int, descending: int):
+        """sortby >> Sort Treeview on click event
 
-        Args:
-            tree_view ([type]): [description]
-            column ([type]): [description]
-            descending ([type]): [description]
+        [extended_summary]
+
+        :param tree_view: [description]
+        :type tree_view: object (TreeView)
+        :param column: [description]
+        :type column: int
+        :param descending: [description]
+        :type descending: int
         """
         print(f"Header Cell {column} Clicked")
         # numeric data -> change to float
         # data =  change_numeric(data)
         data = [(self.tree_view.set(child, column), child) for child in self.tree_view.get_children('')]
         data.sort(reverse=descending)
-        for ix, item in enumerate(data):
-            self.tree_view.move(item[1], '', ix)
+        for i, item in enumerate(data):
+            self.tree_view.move(item[1], '', i)
         # switch heading -> opposite sort
         self.tree_view.heading(
             column,
-            command = lambda c=column: self.sortby(tree_view, c, int(not descending))
+            command = lambda column=column: self.sortby(tree_view, column, int(not descending))
         )
 
 def main():

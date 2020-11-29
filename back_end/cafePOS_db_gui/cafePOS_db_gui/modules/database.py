@@ -3,21 +3,35 @@
 #          FILE:  database.py -> DBManager.py
 #        BRANCH: dev
 # ==========================================
-# TYPE CHECKING
-from typing import (Any, List, Iterator, Union)
+
 # STANDARD LIBRARY IMPORTS
 import csv
 import json
 import logging
 import sqlite3 as sql3
 from sqlite3 import (connect, Error, OperationalError)
-# CUSTOM LIBRARY IMPORTS
-from modules.config import Directories as d_
-from modules.config import TableNames as tn_
-from modules.config import Query as q_
+from typing import (Any, List, Iterator, Union)
+
+# THIRD PARTY IMPORTS
+
+# LOCAL APPLICATION IMPORTS
+from modules.config import (
+    Directories as d_, TableNames as tn_, Query as q_
+)
 
 
 def _DEBUG_(choice: str, cursor: sql3.Cursor = None, connection: sql3.Connection = None) -> None:
+    """_DEBUG_ [summary]
+
+    [extended_summary]
+
+    :param choice: [description]
+    :type choice: str
+    :param cursor: [description], defaults to None
+    :type cursor: sql3.Cursor, optional
+    :param connection: [description], defaults to None
+    :type connection: sql3.Connection, optional
+    """
     if choice.upper() == "INIT":
         print(cursor.execute(q_.FETCH_ALL['tables']).fetchall())
 
@@ -41,46 +55,62 @@ class Database:
         return f"Database={self.db} :=: Connection={conn_status}"
 
     def fetch_all_records(self) -> List[Union[str, str, str, str, float]]:
-        """[summary]
+        """fetch_all_records [summary]
 
-        Returns:
-            [type]: [description]
+        [extended_summary]
+
+        :return: [description]
+        :rtype: List[Union[str, str, str, str, float]]
         """
         self.cur.execute(q_.FETCH_ALL['records'])
         rows = self.cur.fetchall()
         return rows
 
     def insert_record(self, id_: str, category_: str, name_: str, label_: str, price_: float) -> None:
-        """[summary]
+        """insert_record [summary]
 
-        Args:
-            id_ ([type]): [description]
-            category_ ([type]): [description]
-            name_ ([type]): [description]
-            label_ ([type]): [description]
-            price_ ([type]): [description]
+        [extended_summary]
+
+        :param id_: [description]
+        :type id_: str
+        :param category_: [description]
+        :type category_: str
+        :param name_: [description]
+        :type name_: str
+        :param label_: [description]
+        :type label_: str
+        :param price_: [description]
+        :type price_: float
         """
         self.cur.execute(q_.INSERT, (id_, category_, name_, label_, price_))
         self.conn.commit()
 
     def remove_record(self, id_: str) -> None:
-        """[summary]
+        """remove_record [summary]
 
-        Args:
-            id_ ([type]): [description]
+        [extended_summary]
+
+        :param id_: [description]
+        :type id_: str
         """
         self.cur.execute(q_.REMOVE, (id_,))
         self.conn.commit()
 
     def update_record(self, id_: str, category_: str, name_: str, label_: str, price_: float) -> None:
-        """[summary]
+        """update_record [summary]
 
-        Args:
-            id_ ([type]): [description]
-            category_ ([type]): [description]
-            name_ ([type]): [description]
-            label_ ([type]): [description]
-            price_ ([type]): [description]
+        [extended_summary]
+
+        :param id_: [description]
+        :type id_: str
+        :param category_: [description]
+        :type category_: str
+        :param name_: [description]
+        :type name_: str
+        :param label_: [description]
+        :type label_: str
+        :param price_: [description]
+        :type price_: float
         """
         self.cur.execute(
             q_.UPDATE, (id_, category_, name_, label_, price_, id_)
@@ -88,13 +118,14 @@ class Database:
         self.conn.commit()
 
     def search_record_id(self, id_: str) -> List[Union[str, str, str, str, float]]:
-        """[summary]
+        """search_record_id [summary]
 
-        Args:
-            id_ ([type]): [description]
+        [extended_summary]
 
-        Returns:
-            [type]: [description]
+        :param id_: [description]
+        :type id_: str
+        :return: [description]
+        :rtype: List[Union[str, str, str, str, float]]
         """
         self.cur.execute(q_.SEARCH['id_'], (id_,))
         rows = self.cur.fetchall()
@@ -102,10 +133,12 @@ class Database:
 
     # TODO: finish implementation
     def create_tables(self, tables: str) -> None:
-        """[summary]
+        """create_tables [summary]
 
-        Args:
-            table_name ([type]): [description]
+        [extended_summary]
+
+        :param tables: [description]
+        :type tables: str
         """
         try:
             with open(tables, 'r') as tbl_file:
@@ -119,12 +152,17 @@ class Database:
 
     # TODO: finish implementation
     def drop_table(self, table_name: str = None, tables: Iterator[str] = None, drop_all: bool = False) -> None:
-        """[summary]
+        """drop_table [summary]
 
-        Args:
-            table_name ([type]): [description]
+        [extended_summary]
+
+        :param table_name: [description], defaults to None
+        :type table_name: str, optional
+        :param tables: [description], defaults to None
+        :type tables: Iterator[str], optional
+        :param drop_all: [description], defaults to False
+        :type drop_all: bool, optional
         """
-        
         if not drop_all:
             try:
                 self.cur.execute(q_.DROP)
@@ -145,11 +183,14 @@ class Database:
 
     # TODO: finish implementation
     def dump_db_sql(self, table_name: str, output_type: str = 'sql') -> None:
-        """Dump database -> SQL
+        """dump_db_sql >> Dump database -> SQL
 
-        Args:
-            table_name ([type]): [description]
-            output_type (str, optional): [description]. Defaults to 'sql'.
+        [extended_summary]
+
+        :param table_name: [description]
+        :type table_name: str
+        :param output_type: [description], defaults to 'sql'
+        :type output_type: str, optional
         """
         out_file = f"{d_.PROJ_ROOT}{d_.SQL_['prefix']}{d_.SQL_['filename']}{d_.SQL_['ext']}"
         mode = d_.SQL_['mode']
@@ -168,11 +209,14 @@ class Database:
 
     # TODO: finish implementation
     def dump_db_json(self, table_name: str = None, output_type: str = 'json') -> None:
-        """Dump database -> JSON
+        """dump_db_json >> Dump database -> JSON
 
-        Args:
-            table_name ([type], optional): [description]. Defaults to None.
-            output_type (str, optional): [description]. Defaults to 'json'.
+        [extended_summary]
+
+        :param table_name: [description], defaults to None
+        :type table_name: str, optional
+        :param output_type: [description], defaults to 'json'
+        :type output_type: str, optional
         """
         file_path = f"{d_.PROJ_ROOT}{d_.JSON_['prefix']}{d_.JSON_['filename']}{d_.JSON_['ext']}"
         mode = d_.JSON_['mode']
@@ -198,11 +242,14 @@ class Database:
 
     # TODO: finish implementation
     def dump_db_csv(self, table_name: str = None, output_type: str = 'csv') -> None:
-        """Dump database -> CSV
+        """dump_db_csv >> Dump database -> CSV
 
-        Args:
-            table_name ([type], optional): [description]. Defaults to None.
-            output_type (str, optional): [description]. Defaults to 'csv'.
+        [extended_summary]
+
+        :param table_name: [description], defaults to None
+        :type table_name: str, optional
+        :param output_type: [description], defaults to 'csv'
+        :type output_type: str, optional
         """
         file_path = f"{d_.PROJ_ROOT}{d_.CSV_['prefix']}{d_.CSV_['filename']}{d_.CSV_['ext']}"
         mode = d_.CSV_['mode']
@@ -226,11 +273,14 @@ class Database:
 
     # TODO: finish implementation
     def dump_db(self, table_name: str, output_type: str) -> None:
-        """[summary]
+        """dump_db [summary]
 
-        Args:
-            table_name ([type]): [description]
-            output_type (str, optional): [description]. Defaults to 'sql'.
+        [extended_summary]
+
+        :param table_name: [description]
+        :type table_name: str
+        :param output_type: [description]
+        :type output_type: str
         """
         try:
             result = self.cur.execute(q_.FETCH_ALL['records'])            
@@ -262,10 +312,12 @@ class Database:
 
     # TODO: future implementation
     def connect_table(self, table_name: str) -> None:
-        """[summary]
+        """connect_table [summary]
 
-        Args:
-            table_name ([type]): [description]
+        [extended_summary]
+
+        :param table_name: [description]
+        :type table_name: str
         """
         pass
 
