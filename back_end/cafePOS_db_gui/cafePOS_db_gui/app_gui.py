@@ -29,12 +29,12 @@ db = Database(f"{d_.PROJ_ROOT}{d_.DB_['prefix']}{d_.DB_['filename']}{d_.DB_['ext
 # TODO: FINISH IMPLEMENTATION -> config.py
 class GUI(tk.Frame):
 
-    def __init__(self, master):
+    def __init__(self, master, app_width, app_height, x, y):
         # super(GUI, self).__init__(master)
         super().__init__(master)
         self.master = master        
         master.title("Cafe POS Database Management")
-        master.geometry("650x625+50+50")
+        master.geometry(f"{app_width}x{app_height}+{int(x)}+{int(y)}")
         master.resizable(width=False, height=False)        
         master['bg'] = c_.MAIN_['hex']
         self.initialize_UI()
@@ -923,7 +923,15 @@ class GUI(tk.Frame):
 def main():
     root = tk.Tk()
     root.option_add('*tearOff', False)
-    gui = GUI(master=root)
+
+    SCREEN_WIDTH = root.winfo_screenwidth()
+    SCREEN_HEIGHT = root.winfo_screenheight()
+    APP_WIDTH = 650
+    APP_HEIGHT = 625
+    X = (SCREEN_WIDTH / 2) - (APP_WIDTH / 2)
+    Y = (SCREEN_HEIGHT / 2) - (APP_HEIGHT / 2)
+
+    gui = GUI(master=root, app_width=APP_WIDTH, app_height=APP_HEIGHT, x=X, y=Y)
     gui.mainloop()
 
 
