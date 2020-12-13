@@ -123,7 +123,7 @@ class GUI(tk.Frame):
         FRAMES = {
             self.frame_header: {"side": tk.TOP}, 
             self.frame_top: {"side": tk.TOP}, 
-            self.frame_bottom: {"": tk.BOTTOM}
+            self.frame_bottom: {"side": tk.BOTTOM}
         }
 
         # RENDER/PACK FRAMES
