@@ -13,6 +13,18 @@ from tkinter import (ttk, messagebox)
 # THIRD PARTY IMPORTS
 
 # LOCAL IMPORTS
+'''
+from sys import path
+print(path)
+path.append('modules')
+from config import (
+    Directories as d_, Messages as m_, Colors as c_,
+    FrameWidget as f_, TreeViewWidget as tv_,
+    ButtonWidget as b_, EntryWidget as e_,
+    ComboboxWidget as cb_, LabelField as lf_, StylesTtk as st_,
+)
+from database import Database
+'''
 from modules.config import (
     Directories as d_, Messages as m_, Colors as c_,
     FrameWidget as f_, TreeViewWidget as tv_,

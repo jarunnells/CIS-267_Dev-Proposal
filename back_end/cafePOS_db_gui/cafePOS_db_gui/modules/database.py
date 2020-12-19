@@ -15,6 +15,11 @@ from typing import (Any, List, Iterator, Union)
 # THIRD PARTY IMPORTS
 
 # LOCAL APPLICATION IMPORTS
+'''
+from config import (
+    Directories as d_, TableNames as tn_, Query as q_
+)
+'''
 from modules.config import (
     Directories as d_, TableNames as tn_, Query as q_
 )
