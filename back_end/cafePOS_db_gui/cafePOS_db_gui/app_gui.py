@@ -2,7 +2,7 @@
 # ==========================================
 #     DEVELOPER:  J.A. Runnells
 #          FILE:  app_gui.py
-#        BRANCH: dev
+#        BRANCH:  dev
 # ==========================================
 
 # STANDARD LIBRARY IMPORTS

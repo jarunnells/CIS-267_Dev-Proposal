@@ -1,7 +1,7 @@
 # ==========================================
 #     DEVELOPER:  J.A. Runnells
 #          FILE:  config.py
-#        BRANCH: dev
+#        BRANCH:  dev
 #
 # try:  # Python 2
 #     import Tkinter as tk
