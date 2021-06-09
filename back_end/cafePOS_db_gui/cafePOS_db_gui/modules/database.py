@@ -15,14 +15,15 @@ from typing import (Any, List, Iterator, Union)
 # THIRD PARTY IMPORTS
 
 # LOCAL APPLICATION IMPORTS
-'''
 from config import (
     Directories as d_, TableNames as tn_, Query as q_
 )
+
 '''
 from modules.config import (
     Directories as d_, TableNames as tn_, Query as q_
 )
+'''
 
 
 def _DEBUG_(choice: str, cursor: sql3.Cursor = None, connection: sql3.Connection = None) -> None:
@@ -179,7 +180,7 @@ class Database:
         else:
             try:
                 for _ in tables:
-                    self.cur.execute(q_.DROP)                
+                    self.cur.execute(q_.DROP)
             except Error as err:
                 print(f"[ERROR] {err}")
             else:
@@ -225,7 +226,7 @@ class Database:
         """
         file_path = f"{d_.PROJ_ROOT}{d_.JSON_['prefix']}{d_.JSON_['filename']}{d_.JSON_['ext']}"
         mode = d_.JSON_['mode']
-                    
+
         try:
             result = self.cur.execute(q_.FETCH_ALL['records'])
             dict_result = [
@@ -260,7 +261,7 @@ class Database:
         mode = d_.CSV_['mode']
         delimiter = ','
         quoting = csv.QUOTE_MINIMAL
-        
+
         try:
             result = self.cur.execute(q_.FETCH_ALL['records'])
             with open(file_path, mode) as f_csv:
@@ -288,28 +289,28 @@ class Database:
         :type output_type: str
         """
         try:
-            result = self.cur.execute(q_.FETCH_ALL['records'])            
+            result = self.cur.execute(q_.FETCH_ALL['records'])
         except sql3.OperationalError as err:
             print(f"[ERROR] {err}")
         except Error as err:
             print(f"[ERROR] {err}")
-        
+
         if output_type == "sql":
             # self.dump_db_sql(table_name, output_type='sql')
             print("DUMP -> SQL requested....")
-            
+
             # self.dump_db_sql(table_name, output_type='sql', result)
             # self.dump_db_sql(table_name, output_type='sql', result=self.cur.execute(q_.FETCH_ALL['records']))
         elif output_type == "json":
             # self.dump_db_json(table_name, output_type='json')
             print("DUMP -> JSON requested....")
-            
+
             # self.dump_db_json(table_name, output_type='json', result)
             # self.dump_db_json(table_name, output_type='json', result=self.cur.execute(q_.FETCH_ALL['records']))
         elif output_type == "csv":
             # self.dump_db_csv(table_name, output_type='csv')
             print("DUMP -> CSV requested....")
-            
+
             # self.dump_db_csv(table_name, output_type='csv', result)
             # self.dump_db_csv(table_name, output_type='csv', result=self.cur.execute(q_.FETCH_ALL['records']))
         else:
@@ -333,7 +334,6 @@ class Database:
         if self.conn:
             self.conn.close()
             print("DATABASE CLOSED!")
-
 
 # db.insert_record('BK001', 'bkfast', 'Muffin', 'MUFFIN', 2.75)
 # db.insert_record('BK002', 'bkfast', 'House Bagel', 'BAGEL', 3.99)

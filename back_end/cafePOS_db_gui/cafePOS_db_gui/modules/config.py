@@ -14,8 +14,8 @@ import tkinter as tk
 from tkinter import ttk
 from typing import (Dict, List, Iterator, Tuple, Any)
 
-
 FIELD_NAMES: List[str] = ["Item ID", "Category", "Name", "Label", "Price"]
+
 
 # GUI CONFIG SETTINGS
 # TODO: rename 
@@ -31,26 +31,26 @@ class Directories:
     MODE: Tuple[str, ...] = ("w", "wb", "r", "rb")
     PREFIX: Tuple[str, ...] = ("/backup/", "/data/")
     DB_: Dict[str, str] = {
-        "prefix": PREFIX[1], 
-        "filename": DATABASE, 
+        "prefix": PREFIX[1],
+        "filename": DATABASE,
         "ext": ".db",
     }
     SQL_: Dict[str, str] = {
-        "prefix": PREFIX[0], 
-        "filename": FILENAME, 
-        "ext": ".sql", 
+        "prefix": PREFIX[0],
+        "filename": FILENAME,
+        "ext": ".sql",
         "mode": MODE[0],
     }
     JSON_: Dict[str, str] = {
-        "prefix": PREFIX[1], 
-        "filename": FILENAME, 
-        "ext": ".json", 
+        "prefix": PREFIX[1],
+        "filename": FILENAME,
+        "ext": ".json",
         "mode": MODE[0],
     }
     CSV_: Dict[str, str] = {
-        "prefix": PREFIX[1], 
-        "filename": FILENAME, 
-        "ext": ".csv", 
+        "prefix": PREFIX[1],
+        "filename": FILENAME,
+        "ext": ".csv",
         "mode": MODE[0],
     }
 
@@ -63,24 +63,24 @@ class TableNames:
 # TODO: integrate Messages into per Query as dictionary 
 class Messages:
     UPDATE: Dict[str, str] = {
-        "title": "CONFIRM UPDATE OPERATION!", 
+        "title": "CONFIRM UPDATE OPERATION!",
         "message": f"Please confirm update operation on item:"
-        }
+    }
     DELETE: Dict[str, str] = {
-        "title": "CONFIRM DELETE OPERATION!", 
+        "title": "CONFIRM DELETE OPERATION!",
         "message": f"Please confirm delete operation on item:"
-        }
+    }
     ERRORS: Dict[str, str] = {
         "add_item": {
-            "title": "ADD Item Error", 
+            "title": "ADD Item Error",
             "message": "ALL fields required!"
         },
         "update_item": {
-            "title": "UPDATE Item Error", 
+            "title": "UPDATE Item Error",
             "message": "ALL fields required!"
         },
         "remove_item": {
-            "title": "REMOVE Item Error", 
+            "title": "REMOVE Item Error",
             "message": "Click an item row first!"
         }
     }
@@ -108,47 +108,47 @@ class Query:
 
 class Colors:
     LIGHT_STEEL_BLUE: Dict[str, str] = {
-        "py_name": "light steel blue", 
+        "py_name": "light steel blue",
         "hex": "#B0C4DE",
     }
     LIGHT_CORAL: Dict[str, str] = {
-        "py_name": "light coral", 
+        "py_name": "light coral",
         "hex": "#F08080",
     }
     LAVENDER: Dict[str, str] = {
-        "py_name": "lavender", 
+        "py_name": "lavender",
         "hex": "#E6E6FA",
     }
     ANTIQUE_WHITE: Dict[str, str] = {
-        "py_name": "antique white", 
+        "py_name": "antique white",
         "hex": "#FAEBD7",
     }
     DARK_SEA_GREEN: Dict[str, str] = {
-        "py_name": "dark sea green", 
+        "py_name": "dark sea green",
         "hex": "#8FBC8F",
     }
     STEEL_BLUE = MAIN_ = {
-        "py_name": "steel blue", 
+        "py_name": "steel blue",
         "hex": "#4682B4",
     }
     FIRE_BRICK: Dict[str, str] = {
-        "py_name": "'firebrick'", 
+        "py_name": "'firebrick'",
         "hex": "#B22222",
     }
     FIRE_BRICK_65: Dict[str, str] = {
-        "py_name": "", 
+        "py_name": "",
         "hex": "#E26969",
     }
     WHITE_SMOKE: Dict[str, str] = {
-        "py_name": "white smoke", 
+        "py_name": "white smoke",
         "hex": "#F5F5F5",
     }
     GAINSBORO: Dict[str, str] = {
-        "py_name": "gainsboro", 
+        "py_name": "gainsboro",
         "hex": "#DCDCDC",
     }
     DARK_RED: Dict[str, str] = {
-        "py_name": "", 
+        "py_name": "",
         "hex": "#8B0000",
     }
 
@@ -173,7 +173,7 @@ class FrameWidget:
     cnf_pack = {}
     # ===== UNUSED ======
     # padding = (pad_left := None, pad_top := None, pad_right := None, pad_bottom := None)
-    
+
     # ===================
 
 
@@ -191,7 +191,7 @@ class LabelFrameWidget:
     cnf_pack = {}
     # ===== UNUSED ======
     # padding = (pad_left := None, pad_top := None, pad_right := None, pad_bottom := None)
-    
+
     # ===================
 
 
@@ -206,49 +206,49 @@ class ButtonWidget:
     padding: Tuple[int, ...] = (padx, pady)
     BTN: Dict[str, Dict[str, Any]] = {
         "01": {
-            "text": "Add Item", 
-            "row": 0, 
+            "text": "Add Item",
+            "row": 0,
             "column": 2
         },
         "02": {
-            "text": "Remove Item", 
-            "row": 0, 
+            "text": "Remove Item",
+            "row": 0,
             "column": 3
         },
         "03": {
-            "text": "Update Item", 
-            "row": 1, 
+            "text": "Update Item",
+            "row": 1,
             "column": 2
         },
         "04": {
-            "text": "Clear Input", 
-            "row": 1, 
+            "text": "Clear Input",
+            "row": 1,
             "column": 3
         },
-        "05": { # IMPORT -> CSV, JSON, SQL
-            "text": "Import DB", 
-            "row": 2, 
+        "05": {  # IMPORT -> CSV, JSON, SQL
+            "text": "Import DB",
+            "row": 2,
             "column": 2
         },
-        "06": { # EXPORT -> CSV, JSON, SQL
-            "text": "Export DB", 
-            "row": 2, 
+        "06": {  # EXPORT -> CSV, JSON, SQL
+            "text": "Export DB",
+            "row": 2,
             "column": 3
         },
-        "07": { # SEARCH BY -> table fields
-            "text": "Search By...", 
-            "row": 3, 
-            "column": 2, 
+        "07": {  # SEARCH BY -> table fields
+            "text": "Search By...",
+            "row": 3,
+            "column": 2,
             "columnspan": 2
         },
         "08": {
-            "text": "Search", 
-            "row": 4, 
+            "text": "Search",
+            "row": 4,
             "column": 2
         },
         "09": {
-            "text": "Reload", 
-            "row": 4, 
+            "text": "Reload",
+            "row": 4,
             "column": 3
         }
     }
@@ -290,11 +290,11 @@ class ComboboxWidget():
     postcommand = None
     state = None
     textvariable = None
-    values: Iterator[str] = ["", "bkfast", "bev_hot", "bev_cold", "deli", "snack", "condiment",]
+    values: Iterator[str] = ["", "bkfast", "bev_hot", "bev_cold", "deli", "snack", "condiment", ]
     search_values: Iterator[str] = ["Search by ...", "item ID", "category", "name", "label", "price"]
     width: int = 18
     # ===== UNUSED ======
-    
+
     # ===================
 
 
@@ -337,11 +337,11 @@ class TreeViewWidget:
     bind_seq: str = '<<TreeviewSelect>>'
     columns: Dict[str, List[Any]] = {
         "str": FIELD_NAMES,
-        "int": [1,2,3,4,5]
+        "int": [1, 2, 3, 4, 5]
     }
     selectmode: Dict[str, str] = {
-        "one": "browse", 
-        "many": "extended", 
+        "one": "browse",
+        "many": "extended",
         "none": "none"
     }
     show: str = "headings"
@@ -394,14 +394,14 @@ class ListBox:
     # ===================
 
 
-class ScrollbarWidget:    
+class ScrollbarWidget:
     row = 7
     column = 3
     sticky = tk.W
     cnf = {}
     cnf_grid: Dict[str, int] = {
-        "row": row, 
-        "column": column, 
+        "row": row,
+        "column": column,
         "sticky": sticky
     }
     # ===== UNUSED ======
@@ -411,14 +411,14 @@ class ScrollbarWidget:
     # ===================
 
 
-class LabelField:        
+class LabelField:
     font: Tuple[str, int] = ("bold", 16)
     padx: int = 2
     pady: int = 2
     padding: Tuple[int, ...] = (pad_h := padx, pad_v := pady)
     column: int = 0
     sticky: str = tk.E
-    TXT: List[str] = FIELD_NAMES + ["Search (ID)",]
+    TXT: List[str] = FIELD_NAMES + ["Search (ID)", ]
     cnf: Dict[str, int] = {
         "font": font,
         "padx": padx,

@@ -1,7 +1,7 @@
 # ==========================================
 #     DEVELOPER:  J.A. Runnells
 #          FILE:  app.py
-#        BRANCH: dev
+#        BRANCH:  dev
 # ==========================================
 from modules.DBManager import DBManager
 from modules.Menu import Menu

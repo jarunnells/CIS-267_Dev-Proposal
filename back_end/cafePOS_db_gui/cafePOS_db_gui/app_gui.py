@@ -33,7 +33,6 @@ from modules.config import (
 )
 from modules.database import Database
 
-
 # db = Database(":memory:")
 db = Database(f"{d_.PROJ_ROOT}{d_.DB_['prefix']}{d_.DB_['filename']}{d_.DB_['ext']}")
 
@@ -44,13 +43,13 @@ class GUI(tk.Frame):
     def __init__(self, master, app_width, app_height, x, y):
         # super(GUI, self).__init__(master)
         super().__init__(master)
-        self.master = master        
+        self.master = master
         master.title("Cafe POS Database Management")
         master.geometry(f"{app_width}x{app_height}+{int(x)}+{int(y)}")
-        master.resizable(width=False, height=False)        
+        master.resizable(width=False, height=False)
         master['bg'] = c_.MAIN_['hex']
         self.initialize_UI()
-    
+
     def initialize_UI(self):
         """initialize_UI [summary]
 
@@ -74,35 +73,35 @@ class GUI(tk.Frame):
         self.style.theme_use(st_.THEMES[2])
         self.style.configure(
             "TLabel",
-            background = c_.MAIN_['hex'], 
-            foreground = c_.WHITE_SMOKE['hex'],
-        )        
+            background=c_.MAIN_['hex'],
+            foreground=c_.WHITE_SMOKE['hex'],
+        )
         self.style.configure(
             "TEntry",
-            padding = (5,),
+            padding=(5,),
         )
         self.style.configure(
             "TCombobox",
-            padding = (5,),
+            padding=(5,),
         )
         self.style.configure(
             "Search.TCombobox",
-            justify = tk.CENTER,
+            justify=tk.CENTER,
         )
         self.style.configure(
             "Treeview",
-            background = c_.WHITE_SMOKE['hex'],
-            foreground = "#000",
-            rowheight = 25,
-            fieldbackground = c_.WHITE_SMOKE['hex'],
+            background=c_.WHITE_SMOKE['hex'],
+            foreground="#000",
+            rowheight=25,
+            fieldbackground=c_.WHITE_SMOKE['hex'],
         )
         self.style.map(
-            "Treeview", 
-            background = [("selected", c_.FIRE_BRICK_65['hex'])]
+            "Treeview",
+            background=[("selected", c_.FIRE_BRICK_65['hex'])]
         )
         self.style.map(
             "TEntry",
-            highlightcolor = [("focus", "#CCE6FF"), ("!focus", "")],
+            highlightcolor=[("focus", "#CCE6FF"), ("!focus", "")],
         )
 
     def create_frames(self):
@@ -116,46 +115,46 @@ class GUI(tk.Frame):
         # self.frame_bottom = ttk.Frame(master=self.master)
         FRAMES = {}
         self.frame_header = tk.Frame(
-            master = self.master, 
-            padx = f_.padx['frame'], 
-            pady = f_.pady['frame'], 
-            background = c_.MAIN_['hex']
+            master=self.master,
+            padx=f_.padx['frame'],
+            pady=f_.pady['frame'],
+            background=c_.MAIN_['hex']
         )
         self.frame_top = tk.Frame(
-            master = self.master, 
-            background = c_.MAIN_['hex']
+            master=self.master,
+            background=c_.MAIN_['hex']
         )
         self.frame_bottom = tk.Frame(
-            master = self.master, 
-            padx = f_.padx['frame'], 
-            pady = f_.pady['frame'], 
-            background = c_.MAIN_['hex']
+            master=self.master,
+            padx=f_.padx['frame'],
+            pady=f_.pady['frame'],
+            background=c_.MAIN_['hex']
         )
 
         FRAMES = {
-            self.frame_header: {"side": tk.TOP}, 
-            self.frame_top: {"side": tk.TOP}, 
+            self.frame_header: {"side": tk.TOP},
+            self.frame_top: {"side": tk.TOP},
             self.frame_bottom: {"side": tk.BOTTOM}
         }
 
         # RENDER/PACK FRAMES
         self.frame_header.pack(
-            fill = tk.BOTH, 
-            expand = tk.YES
+            fill=tk.BOTH,
+            expand=tk.YES
         )
         self.frame_top.pack(
-            fill = tk.BOTH, 
-            expand = tk.YES, 
-            side = tk.TOP, 
-            padx = f_.padx['pack'], 
-            pady = f_.pady['pack']
+            fill=tk.BOTH,
+            expand=tk.YES,
+            side=tk.TOP,
+            padx=f_.padx['pack'],
+            pady=f_.pady['pack']
         )
         self.frame_bottom.pack(
-            fill = tk.BOTH, 
-            expand = tk.YES, 
-            side = tk.BOTTOM, 
-            padx = f_.padx['pack'], 
-            pady = f_.pady['pack']
+            fill=tk.BOTH,
+            expand=tk.YES,
+            side=tk.BOTTOM,
+            padx=f_.padx['pack'],
+            pady=f_.pady['pack']
         )
 
     def create_menubar(self):
@@ -168,94 +167,94 @@ class GUI(tk.Frame):
         self.file_ = tk.Menu(self.menubar)
         self.admin_ = tk.Menu(self.menubar)
         self.admin_database = tk.Menu(self.admin_)
-        self.admin_import = tk.Menu(self.admin_)        
+        self.admin_import = tk.Menu(self.admin_)
         self.admin_export = tk.Menu(self.admin_)
         self.help_ = tk.Menu(self.menubar)
         # CASCADE
         self.menubar.add_cascade(
-            menu = self.file_,
-            label = "File",
+            menu=self.file_,
+            label="File",
         )
         self.menubar.add_cascade(
-            menu = self.admin_,
-            label = "ADMIN",
+            menu=self.admin_,
+            label="ADMIN",
         )
         self.menubar.add_cascade(
-            menu = self.help_,
-            label = "Help",
-        )        
-        self.admin_.add_cascade(
-            menu = self.admin_database,
-            label = "Database",
+            menu=self.help_,
+            label="Help",
         )
         self.admin_.add_cascade(
-            menu = self.admin_import,
-            label = "Import",
+            menu=self.admin_database,
+            label="Database",
         )
         self.admin_.add_cascade(
-            menu = self.admin_export,
-            label = "Export",
+            menu=self.admin_import,
+            label="Import",
+        )
+        self.admin_.add_cascade(
+            menu=self.admin_export,
+            label="Export",
         )
         # COMMANDS FILE
         self.file_.add_command(
-            label="Open...", 
+            label="Open...",
             command=lambda: print("[CLICKED] Menubar -> Open... ")
         )
         self.file_.add_separator()
         self.file_.add_command(
-            label = "Exit", 
+            label="Exit",
             command=lambda: self.master.destroy()
             # command = lambda: self.master.quit()
         )
         # COMMANDS ADMIN
         self.admin_database.add_command(
-            label = "New...", 
-            command = lambda: print("[CLICKED] Menubar -> New... ")
+            label="New...",
+            command=lambda: print("[CLICKED] Menubar -> New... ")
         )
         self.admin_database.add_command(
-            label = "Update...", 
-            command = lambda: print("[CLICKED] Menubar -> Update... ")
+            label="Update...",
+            command=lambda: print("[CLICKED] Menubar -> Update... ")
         )
         self.admin_database.add_command(
-            label = "Drop...", 
-            command = lambda: print("[CLICKED] Menubar -> Drop... ")
+            label="Drop...",
+            command=lambda: print("[CLICKED] Menubar -> Drop... ")
         )
         self.admin_database.add_command(
-            label = "Backup...", 
-            command = lambda: print("[CLICKED] Menubar -> Backup... ")
+            label="Backup...",
+            command=lambda: print("[CLICKED] Menubar -> Backup... ")
         )
         self.admin_database.add_command(
-            label = "Restore...", 
-            command = lambda: print("[CLICKED] Menubar -> Restore... ")
+            label="Restore...",
+            command=lambda: print("[CLICKED] Menubar -> Restore... ")
         )
         self.admin_import.add_command(
-            label = "Import CSV...", 
-            command = lambda: print("[CLICKED] Menubar -> Import CSV... ")
+            label="Import CSV...",
+            command=lambda: print("[CLICKED] Menubar -> Import CSV... ")
         )
         self.admin_import.add_command(
-            label = "Import JSON...", 
-            command = lambda: print("[CLICKED] Menubar -> Import JSON... ")
+            label="Import JSON...",
+            command=lambda: print("[CLICKED] Menubar -> Import JSON... ")
         )
         self.admin_export.add_command(
-            label = "Export CSV...", 
+            label="Export CSV...",
             # command = db.dump_db(tn_.ACTIVE_TABLE, 'csv')
             command=lambda: print("[CLICKED] Menubar -> Export CSV... ")
             # dump_db(self, table_name, output_type)
         )
         self.admin_export.add_command(
-            label = "Export JSON...", 
+            label="Export JSON...",
             # command = db.dump_db(tn_.ACTIVE_TABLE, 'json')
-            command = lambda: print("[CLICKED] Menubar -> Export JSON... ")
+            command=lambda: print("[CLICKED] Menubar -> Export JSON... ")
         )
         # COMMANDS HELP
         self.help_.add_command(
-            label = "View Help",
-            command = lambda: print("[CLICKED] Menubar -> View Help ")
+            label="View Help",
+            command=lambda: print("[CLICKED] Menubar -> View Help ")
         )
         self.help_.add_separator()
         self.help_.add_command(
-            label = "About...",
-            command = lambda: print("[CLICKED] Menubar -> About... ")
+            label="About...",
+            command=lambda: print("[CLICKED] Menubar -> About... ")
         )
         # HOT KEYS
         self.file_.entryconfig('Open...', accelerator='Ctrl+O')
@@ -270,126 +269,126 @@ class GUI(tk.Frame):
 
         # HEADER WIDGET
         self.header_label = ttk.Label(
-            master = self.frame_header, 
-            text = "CAFE POS DATABASE", 
-            font = ("bold", 36),
-            anchor = 'center',
+            master=self.frame_header,
+            text="CAFE POS DATABASE",
+            font=("bold", 36),
+            anchor='center',
         )
         self.header_label.pack(
-            fill = tk.BOTH, 
-            expand = tk.YES, 
-            side = tk.TOP,
+            fill=tk.BOTH,
+            expand=tk.YES,
+            side=tk.TOP,
         )
 
         # ID WIDGET
         self.id_text = tk.StringVar()
         self.id_label = ttk.Label(
-            master = _MASTER, 
-            text = lf_.TXT[0].upper(),
-            padding = lf_.padding,
-            font = lf_.font,
+            master=_MASTER,
+            text=lf_.TXT[0].upper(),
+            padding=lf_.padding,
+            font=lf_.font,
         )
         self.id_label.grid(
-            row = 0, 
-            cnf = lf_.cnf_grid,
+            row=0,
+            cnf=lf_.cnf_grid,
         )
         self.id_entry = ttk.Entry(
-            master = _MASTER, 
-            textvariable = self.id_text,
-            width = e_.width,
+            master=_MASTER,
+            textvariable=self.id_text,
+            width=e_.width,
         )
         self.id_entry.grid(
-            row = 0, 
-            cnf = e_.cnf_grid,
+            row=0,
+            cnf=e_.cnf_grid,
         )
 
         # CATEGORY WIDGET
         self.category_text = tk.StringVar()
         self.category_label = ttk.Label(
-            master = _MASTER, 
-            text = lf_.TXT[1].upper(),
-            padding = lf_.padding,
-            font = lf_.font,
+            master=_MASTER,
+            text=lf_.TXT[1].upper(),
+            padding=lf_.padding,
+            font=lf_.font,
         )
         self.category_label.grid(
-            row = 1, 
-            cnf = lf_.cnf_grid,
+            row=1,
+            cnf=lf_.cnf_grid,
         )
         self.category_combo = ttk.Combobox(
-            master = _MASTER, 
-            textvariable = self.category_text,
-            values = cb_.values,
-            width = cb_.width,
+            master=_MASTER,
+            textvariable=self.category_text,
+            values=cb_.values,
+            width=cb_.width,
         )
         self.category_combo.grid(
-            row = 1, 
-            cnf = e_.cnf_grid,
+            row=1,
+            cnf=e_.cnf_grid,
         )
 
         # NAME WIDGET
         self.name_text = tk.StringVar()
         self.name_label = ttk.Label(
-            master = _MASTER, 
-            text = lf_.TXT[2].upper(),
-            padding = lf_.padding,
-            font = lf_.font,
+            master=_MASTER,
+            text=lf_.TXT[2].upper(),
+            padding=lf_.padding,
+            font=lf_.font,
         )
         self.name_label.grid(
-            row = 2, 
-            cnf = lf_.cnf_grid,
+            row=2,
+            cnf=lf_.cnf_grid,
         )
         self.name_entry = ttk.Entry(
-            master = _MASTER, 
-            textvariable = self.name_text,
-            width = e_.width,
+            master=_MASTER,
+            textvariable=self.name_text,
+            width=e_.width,
         )
         self.name_entry.grid(
-            row = 2, 
-            cnf = e_.cnf_grid,
+            row=2,
+            cnf=e_.cnf_grid,
         )
 
         # POS LABEL WIDGET
         self.pos_label_text = tk.StringVar()
         self.pos_label_label = ttk.Label(
-            master = _MASTER, 
-            text = lf_.TXT[3].upper(),
-            padding = lf_.padding,
-            font = lf_.font,
+            master=_MASTER,
+            text=lf_.TXT[3].upper(),
+            padding=lf_.padding,
+            font=lf_.font,
         )
         self.pos_label_label.grid(
-            row = 3, 
-            cnf = lf_.cnf_grid,
+            row=3,
+            cnf=lf_.cnf_grid,
         )
         self.pos_label_entry = ttk.Entry(
-            master = _MASTER, 
-            textvariable = self.pos_label_text,
-            width = e_.width,
+            master=_MASTER,
+            textvariable=self.pos_label_text,
+            width=e_.width,
         )
         self.pos_label_entry.grid(
-            row = 3, 
-            cnf = e_.cnf_grid,
+            row=3,
+            cnf=e_.cnf_grid,
         )
 
         # PRICE WIDGET
         self.price_text = tk.StringVar()
         self.price_label = ttk.Label(
-            master = _MASTER, 
-            text = lf_.TXT[4].upper(),
-            padding = lf_.padding,
-            font = lf_.font,
+            master=_MASTER,
+            text=lf_.TXT[4].upper(),
+            padding=lf_.padding,
+            font=lf_.font,
         )
         self.price_label.grid(
-            row = 4, 
-            cnf = lf_.cnf_grid,
+            row=4,
+            cnf=lf_.cnf_grid,
         )
         self.price_entry = ttk.Entry(
-            master = _MASTER, 
-            textvariable = self.price_text,
-            width = e_.width,
+            master=_MASTER,
+            textvariable=self.price_text,
+            width=e_.width,
         )
         self.price_entry.grid(
-            row = 4, 
-            cnf = e_.cnf_grid,
+            row=4,
+            cnf=e_.cnf_grid,
         )
 
     def create_treeview(self):
@@ -398,135 +397,135 @@ class GUI(tk.Frame):
         [extended_summary]
         """
         self.tree_view = ttk.Treeview(
-            master = self.frame_top, 
-            show = tv_.show, 
-            selectmode = tv_.selectmode['many'],
+            master=self.frame_top,
+            show=tv_.show,
+            selectmode=tv_.selectmode['many'],
         )
 
         self.vsb = ttk.Scrollbar(
-            orient = tk.VERTICAL, 
-            command = self.tree_view.yview,
+            orient=tk.VERTICAL,
+            command=self.tree_view.yview,
         )
         self.hsb = ttk.Scrollbar(
-            orient = tk.HORIZONTAL, 
-            command = self.tree_view.xview,
+            orient=tk.HORIZONTAL,
+            command=self.tree_view.xview,
         )
 
         self.tree_view['columns'] = tv_.columns['int']
 
         self.tree_view.heading(
-            column = 1,
-            text = tv_.HEADINGS[0],
+            column=1,
+            text=tv_.HEADINGS[0],
             # width = tkFont.Font().measure(col.title()),
-            command = lambda col=1: self.sortby(self.tree_view, col, 0),
+            command=lambda col=1: self.sortby(self.tree_view, col, 0),
         )
         self.tree_view.heading(
-            column = 2,
-            text = tv_.HEADINGS[1],
+            column=2,
+            text=tv_.HEADINGS[1],
             # width = tkFont.Font().measure(col.title()),
-            command = lambda col=2: self.sortby(self.tree_view, col, 0),
+            command=lambda col=2: self.sortby(self.tree_view, col, 0),
         )
         self.tree_view.heading(
-            column = 3,
-            text = tv_.HEADINGS[2],
+            column=3,
+            text=tv_.HEADINGS[2],
             # width = tkFont.Font().measure(col.title()),
-            command = lambda col=3: self.sortby(self.tree_view, col, 0),
+            command=lambda col=3: self.sortby(self.tree_view, col, 0),
         )
         self.tree_view.heading(
-            column = 4,
-            text = tv_.HEADINGS[3],
+            column=4,
+            text=tv_.HEADINGS[3],
             # width = tkFont.Font().measure(col.title()),
-            command = lambda col=4: self.sortby(self.tree_view, col, 0),
+            command=lambda col=4: self.sortby(self.tree_view, col, 0),
         )
         self.tree_view.heading(
-            column = 5,
-            text = tv_.HEADINGS[4],
+            column=5,
+            text=tv_.HEADINGS[4],
             # width = tkFont.Font().measure(col.title()),
-            command = lambda col=5: self.sortby(self.tree_view, col, 0),
+            command=lambda col=5: self.sortby(self.tree_view, col, 0),
         )
 
         self.tree_view.column(
-            column = 1,
-            anchor = tk.W,
-            width = 75,
-            minwidth = 50,
+            column=1,
+            anchor=tk.W,
+            width=75,
+            minwidth=50,
             # stretch = tk.YES,
         )
         self.tree_view.column(
-            column = 2,
-            anchor = tk.W,
-            width = 100,
-            minwidth = 80,
+            column=2,
+            anchor=tk.W,
+            width=100,
+            minwidth=80,
             # stretch = tk.YES,
         )
         self.tree_view.column(
-            column = 3,
-            anchor = tk.W,
-            width = 155,
-            minwidth = 125,
+            column=3,
+            anchor=tk.W,
+            width=155,
+            minwidth=125,
             # stretch = tk.YES,
         )
         self.tree_view.column(
-            column = 4,
-            anchor = tk.W,
-            width = 125,
-            minwidth = 100
+            column=4,
+            anchor=tk.W,
+            width=125,
+            minwidth=100
             # stretch = tk.YES
         )
         self.tree_view.column(
-            column = 5,
-            anchor = tk.CENTER,
-            width = 60,
-            minwidth = 40,
+            column=5,
+            anchor=tk.CENTER,
+            width=60,
+            minwidth=40,
             # stretch = tk.YES,
         )
 
         self.tree_view.configure(
-            yscrollcommand = self.vsb.set, 
-            xscrollcommand = self.hsb.set,
+            yscrollcommand=self.vsb.set,
+            xscrollcommand=self.hsb.set,
         )
         self.tree_view.tag_configure(
-            tagname = 'row_odd', 
-            background = c_.WHITE_SMOKE['hex'],
+            tagname='row_odd',
+            background=c_.WHITE_SMOKE['hex'],
         )
         self.tree_view.tag_configure(
-            tagname = 'row_even', 
-            background = c_.GAINSBORO['hex'],
+            tagname='row_even',
+            background=c_.GAINSBORO['hex'],
         )
-        
+
         self.tree_view.grid(
-            column = 0, 
-            row = 0, 
-            sticky = 'nsew', 
-            in_ = self.frame_top,
+            column=0,
+            row=0,
+            sticky='nsew',
+            in_=self.frame_top,
         )
         self.vsb.grid(
-            column = 1,
-            row = 0,
-            sticky = 'ns',
-            in_ = self.frame_top,
+            column=1,
+            row=0,
+            sticky='ns',
+            in_=self.frame_top,
         )
         self.hsb.grid(
-            column = 0,
-            row = 1,
-            sticky = 'ew',
-            in_ = self.frame_top,
+            column=0,
+            row=1,
+            sticky='ew',
+            in_=self.frame_top,
         )
 
         self.frame_top.grid_columnconfigure(
-            index = 0, 
-            weight = 1,
+            index=0,
+            weight=1,
         )
         self.frame_top.grid_rowconfigure(
-            index = 0, 
-            weight = 1,
+            index=0,
+            weight=1,
         )
 
         self.tree_view.bind(
-            sequence = tv_.bind_seq, 
-            func = self.select_item,
+            sequence=tv_.bind_seq,
+            func=self.select_item,
         )
-        
+
         # TODO: COMPLETE IMPLEMENTATION
         '''
         adjust_column_width():
@@ -538,7 +537,7 @@ class GUI(tk.Frame):
                         if self.tree_view.column(items_header[i],width = None)<col_w:
                             self.tree_view.column(items_header[i], width = col_w)
         '''
-        
+
         # TEST DATA
         # test_data = [
         #     ("ID001", "Category01", "ItemName01", "Label01", 1.95),
@@ -559,56 +558,56 @@ class GUI(tk.Frame):
 
         # BUTTON 01
         self.add_btn = ttk.Button(
-            master = _MASTER,
-            text = b_.BTN['01']['text'].upper(),
-            command = self.add_item, 
+            master=_MASTER,
+            text=b_.BTN['01']['text'].upper(),
+            command=self.add_item,
             # cnf = b_.cnf,
         )
         self.add_btn.grid(
-            row = b_.BTN['01']['row'],
-            column = b_.BTN['01']['column'],
-            cnf = b_.cnf_grid,
+            row=b_.BTN['01']['row'],
+            column=b_.BTN['01']['column'],
+            cnf=b_.cnf_grid,
         )
-        
+
         # BUTTON 02
         self.remove_btn = ttk.Button(
-            master = _MASTER,
-            text = b_.BTN['02']['text'].upper(),
-            command = self.remove_item,
+            master=_MASTER,
+            text=b_.BTN['02']['text'].upper(),
+            command=self.remove_item,
             # cnf = b_.cnf,
         )
         self.remove_btn.grid(
-            row = b_.BTN['02']['row'],
-            column = b_.BTN['02']['column'],
-            cnf = b_.cnf_grid,
+            row=b_.BTN['02']['row'],
+            column=b_.BTN['02']['column'],
+            cnf=b_.cnf_grid,
         )
-        
+
         # BUTTON 03
         self.update_btn = ttk.Button(
-            master = _MASTER, 
-            text = b_.BTN['03']['text'].upper(), 
-            command = self.update_item,
+            master=_MASTER,
+            text=b_.BTN['03']['text'].upper(),
+            command=self.update_item,
             # cnf = b_.cnf,
         )
         self.update_btn.grid(
-            row = b_.BTN['03']['row'], 
-            column = b_.BTN['03']['column'], 
-            cnf = b_.cnf_grid,
+            row=b_.BTN['03']['row'],
+            column=b_.BTN['03']['column'],
+            cnf=b_.cnf_grid,
         )
-        
+
         # BUTTON 04
         self.clear_btn = ttk.Button(
-            master = _MASTER, 
-            text = b_.BTN['04']['text'].upper(), 
-            command = self.clear_entry_fields,
+            master=_MASTER,
+            text=b_.BTN['04']['text'].upper(),
+            command=self.clear_entry_fields,
             # cnf = b_.cnf,
         )
         self.clear_btn.grid(
-            row = b_.BTN['04']['row'], 
-            column = b_.BTN['04']['column'], 
-            cnf = b_.cnf_grid,
+            row=b_.BTN['04']['row'],
+            column=b_.BTN['04']['column'],
+            cnf=b_.cnf_grid,
         )
-        
+
         # BUTTON 05
         # self.import_csv_btn = ttk.Button(
         #     master = _MASTER, 
@@ -621,7 +620,7 @@ class GUI(tk.Frame):
         #     column = b_.BTN['05']['column'], 
         #     cnf = b_.cnf_grid,
         # )
-        
+
         # BUTTON 06
         # self.export_csv_btn = ttk.Button(
         #     master = _MASTER, 
@@ -634,7 +633,7 @@ class GUI(tk.Frame):
         #     column = b_.BTN['06']['column'], 
         #     cnf = b_.cnf_grid,
         # )
-        
+
         # # BUTTON 07
         # self.search_menubtn = ttk.Menubutton(
         #     master = _MASTER, 
@@ -656,7 +655,7 @@ class GUI(tk.Frame):
         # self.mb_option_name = tk.IntVar()
         # self.mb_option_label = tk.IntVar()
         # self.mb_option_price = tk.IntVar()
-        
+
         # # self.search_menubtn.menu.add_checkbutton(
         # self.search_menubtn.menu.add_radiobutton(
         #     label = "Item ID",
@@ -682,46 +681,46 @@ class GUI(tk.Frame):
         #     label = "Price",
         #     variable = self.mb_option_price
         # )
-        
+
         # SEARCH COMBOBOX (BUTTON 07)
         self.search_combo = ttk.Combobox(
-            master = _MASTER, 
+            master=_MASTER,
             # textvariable = None,
-            values = cb_.search_values,
-            width = cb_.width,
-            style = "Search.TCombobox",
-        )        
+            values=cb_.search_values,
+            width=cb_.width,
+            style="Search.TCombobox",
+        )
         self.search_combo.set(cb_.search_values[0])
         self.search_combo.grid(
-            row = 3, 
-            column = 2,
-            columnspan = 2,
+            row=3,
+            column=2,
+            columnspan=2,
         )
-        
+
         # BUTTON 08
         self.search_btn = ttk.Button(
-            master = _MASTER, 
-            text = b_.BTN['08']['text'].upper(), 
-            command = self.search_item_id, 
+            master=_MASTER,
+            text=b_.BTN['08']['text'].upper(),
+            command=self.search_item_id,
             # cnf = b_.cnf,
         )
         self.search_btn.grid(
-            row = b_.BTN['08']['row'], 
-            column = b_.BTN['08']['column'], 
-            cnf = b_.cnf_grid,
+            row=b_.BTN['08']['row'],
+            column=b_.BTN['08']['column'],
+            cnf=b_.cnf_grid,
         )
-        
+
         # BUTTON 09
         self.populate_btn = ttk.Button(
-            master = _MASTER, 
-            text = b_.BTN['09']['text'].upper(), 
-            command = self.populate_tree, 
+            master=_MASTER,
+            text=b_.BTN['09']['text'].upper(),
+            command=self.populate_tree,
             # cnf = b_.cnf,
         )
         self.populate_btn.grid(
-            row = b_.BTN['09']['row'], 
-            column = b_.BTN['09']['column'], 
-            cnf = b_.cnf_grid,
+            row=b_.BTN['09']['row'],
+            column=b_.BTN['09']['column'],
+            cnf=b_.cnf_grid,
         )
 
     def populate_tree(self):
@@ -753,7 +752,7 @@ class GUI(tk.Frame):
             "name_": self.name_text.get().capitalize(),
             "pos_label_": self.pos_label_text.get().upper(),
             "price_": float(self.price_text.get()) if self.price_text.get() != '' else self.price_text.get(),
-        } 
+        }
         conditions = [
             item['id_'] == '',
             item['category_'] == '',
@@ -787,7 +786,7 @@ class GUI(tk.Frame):
             "pos_label_": self.pos_label_text.get().upper(),
             "price_": float(self.price_text.get()) if self.price_text.get() != '' else self.price_text.get(),
         }
-        if self.validate_conditions(action='add'): 
+        if self.validate_conditions(action='add'):
             return
         # DEBUG ==========================
         print(self.id_text.get().upper())
@@ -838,8 +837,8 @@ class GUI(tk.Frame):
         [extended_summary]
         """
         if messagebox.askyesno(
-            title = m_.DELETE['title'], 
-            message = f"{m_.DELETE['message']} {self.selected_item_values[0]}"
+                title=m_.DELETE['title'],
+                message=f"{m_.DELETE['message']} {self.selected_item_values[0]}"
         ):
             db.remove_record(self.selected_item_values[0])
             self.populate_tree()
@@ -852,8 +851,8 @@ class GUI(tk.Frame):
         """
         records_selected = self.tree_view.selection()
         if messagebox.askyesno(
-            title = m_.DELETE['title'], 
-            message = f"{m_.DELETE['message']} {records_selected.count()}"
+                title=m_.DELETE['title'],
+                message=f"{m_.DELETE['message']} {records_selected.count()}"
         ):
             for record in records_selected:
                 db.remove_record(record)
@@ -864,12 +863,12 @@ class GUI(tk.Frame):
 
         [extended_summary]
         """
-        if self.validate_conditions(action='update'): 
+        if self.validate_conditions(action='update'):
             return
         else:
             if messagebox.askyesno(
-                title = m_.UPDATE['title'], 
-                message = f"{m_.UPDATE['message']} {self.selected_item_values[0]}"
+                    title=m_.UPDATE['title'],
+                    message=f"{m_.UPDATE['message']} {self.selected_item_values[0]}"
             ):
                 db.update_record(
                     self.selected_item_values[0],
@@ -900,12 +899,12 @@ class GUI(tk.Frame):
 
         [extended_summary]
         """
-        if not self.id_entry.get(): 
+        if not self.id_entry.get():
             print("ID BLANK -> ADD Prompt!")
         else:
             self.tree_view.delete(*self.tree_view.get_children())
             for row in db.search_record_id(self.id_entry.get().upper()):
-                self.tree_view.insert("", "end", values = row)
+                self.tree_view.insert("", "end", values=row)
 
     def sortby(self, tree_view: object, column: int, descending: int):
         """sortby >> Sort Treeview on click event
@@ -929,8 +928,9 @@ class GUI(tk.Frame):
         # switch heading -> opposite sort
         self.tree_view.heading(
             column,
-            command = lambda column=column: self.sortby(tree_view, column, int(not descending))
+            command=lambda column=column: self.sortby(tree_view, column, int(not descending))
         )
+
 
 def main():
     root = tk.Tk()
@@ -947,5 +947,5 @@ def main():
     gui.mainloop()
 
 
-if __name__ == '__main__': 
+if __name__ == '__main__':
     main()
